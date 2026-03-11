@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Carlsbad Controls — TaylorMade Guard Patrol</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --tm-black:#0a0a0a;--tm-dark:#1a1a1a;--tm-mid:#2a2a2a;--tm-gray:#6b6b6b;
+  --tm-light:#e0e0e0;--tm-white:#ffffff;--tm-red:#e31937;--tm-red-dark:#b81430;
+  --tm-green:#28a745;--tm-amber:#f0ad4e;--tm-blue:#3b82f6;--radius:8px;
+}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--tm-black);color:var(--tm-white);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+button{cursor:pointer;font-family:inherit;border:none}
+input,select,textarea{font-family:inherit}
+
+.app-shell{max-width:520px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column}
+
+/* TOP BAR */
+.top-bar{background:var(--tm-dark);border-bottom:2px solid var(--tm-red);padding:16px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
+.tm-logo{width:42px;height:42px;background:var(--tm-red);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:800;font-size:24px;color:#fff;flex-shrink:0;letter-spacing:-1px}
+.top-bar-text h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:1.5px;line-height:1.2}
+.top-bar-text p{font-size:11px;color:var(--tm-gray);letter-spacing:.5px;margin-top:2px}
+.top-bar-right{margin-left:auto;text-align:right}
+.top-bar-right .time{font-size:13px;font-weight:600;color:var(--tm-light)}
+.top-bar-right .date{font-size:10px;color:var(--tm-gray);margin-top:1px}
+
+/* SCREENS */
+.screen{display:none;flex:1;flex-direction:column}.screen.active{display:flex}
+
+/* LOGIN */
+.login-screen{justify-content:center;align-items:center;padding:40px 24px}
+.login-card{background:var(--tm-dark);border:1px solid var(--tm-mid);border-radius:12px;padding:40px 32px;width:100%;max-width:380px;text-align:center}
+.login-card .logo-big{width:72px;height:72px;background:var(--tm-red);border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-weight:800;font-size:42px;color:#fff;margin-bottom:20px;letter-spacing:-2px}
+.login-card h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.login-card .subtitle{font-size:13px;color:var(--tm-gray);margin-bottom:28px}
+.login-card label{display:block;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--tm-gray);margin-bottom:8px}
+.select-wrap{position:relative;margin-bottom:24px}
+.select-wrap select{width:100%;padding:14px 16px;padding-right:40px;background:var(--tm-mid);border:1px solid #444;border-radius:var(--radius);color:#fff;font-size:15px;font-weight:500;appearance:none;-webkit-appearance:none}
+.select-wrap::after{content:'▾';position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--tm-gray);pointer-events:none;font-size:14px}
+.select-wrap select:focus{outline:none;border-color:var(--tm-red)}
+.btn-primary{width:100%;padding:16px;background:var(--tm-red);color:#fff;font-family:'Oswald',sans-serif;font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:2px;border-radius:var(--radius);transition:background .2s}
+.btn-primary:hover{background:var(--tm-red-dark)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+
+/* PATROL SELECT */
+.patrol-select{padding:24px 20px}
+.greeting{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;margin-bottom:4px}
+.greeting-sub{font-size:13px;color:var(--tm-gray);margin-bottom:24px}
+.patrol-cards{display:flex;flex-direction:column;gap:12px}
+.patrol-card{background:var(--tm-dark);border:1px solid var(--tm-mid);border-radius:12px;padding:20px;display:flex;align-items:center;gap:16px;transition:all .2s;cursor:pointer}
+.patrol-card:hover{border-color:var(--tm-red);transform:translateY(-1px)}
+.patrol-card .icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.patrol-card .icon.interior{background:rgba(59,130,246,.15);color:var(--tm-blue)}
+.patrol-card .icon.exterior{background:rgba(40,167,69,.15);color:var(--tm-green)}
+.patrol-card .icon.afterhours{background:rgba(227,25,55,.15);color:var(--tm-red)}
+.patrol-card .info h3{font-size:15px;font-weight:700;margin-bottom:2px}
+.patrol-card .info p{font-size:12px;color:var(--tm-gray)}
+.patrol-card .arrow{margin-left:auto;color:var(--tm-gray);font-size:18px}
+.patrol-card.has-saved .info h3::after{content:'SAVED';font-size:9px;background:var(--tm-amber);color:#000;padding:2px 6px;border-radius:3px;margin-left:8px;font-weight:700;vertical-align:middle}
+.resume-banner{background:rgba(240,173,78,.1);border:1px solid rgba(240,173,78,.3);border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;font-size:13px;color:var(--tm-amber);display:flex;align-items:center;gap:8px}
+
+/* CONFIG BANNER */
+.config-banner{background:rgba(227,25,55,.08);border:1px solid rgba(227,25,55,.25);border-radius:var(--radius);padding:12px 16px;margin:20px 20px 0;font-size:12px;color:var(--tm-red);line-height:1.5}
+.config-banner a{color:var(--tm-red);text-decoration:underline}
+.config-banner.connected{background:rgba(40,167,69,.08);border-color:rgba(40,167,69,.25);color:var(--tm-green)}
+
+/* PATROL CHECKLIST */
+.patrol-screen{padding:0;display:flex;flex-direction:column;overflow-y:auto;max-height:calc(100dvh - 73px)}
+.patrol-header{background:var(--tm-dark);border-bottom:1px solid var(--tm-mid);padding:14px 20px;position:sticky;top:0;z-index:90;flex-shrink:0}
+.patrol-header-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.btn-back{background:none;color:var(--tm-gray);font-size:22px;padding:4px 8px;border-radius:4px;line-height:1}
+.btn-back:hover{color:#fff;background:var(--tm-mid)}
+.patrol-header-top h2{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:1px;flex:1}
+.progress-wrap{display:flex;align-items:center;gap:10px}
+.progress-bar{flex:1;height:6px;background:var(--tm-mid);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--tm-red);border-radius:3px;transition:width .3s}
+.progress-text{font-size:11px;font-weight:700;color:var(--tm-gray);min-width:36px;text-align:right}
+
+/* ZONE */
+.zone-section{border-bottom:1px solid var(--tm-mid)}
+.zone-header{padding:14px 20px;display:flex;align-items:center;cursor:pointer;background:var(--tm-dark);transition:background .15s;gap:10px}
+.zone-header:hover{background:#222}
+.zone-header .zone-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.zone-header .zone-icon.done{background:rgba(40,167,69,.15);color:var(--tm-green)}
+.zone-header .zone-icon.partial{background:rgba(240,173,78,.15);color:var(--tm-amber)}
+.zone-header .zone-icon.empty{background:var(--tm-mid);color:var(--tm-gray)}
+.zone-header .zone-icon.has-issue{background:rgba(227,25,55,.15);color:var(--tm-red)}
+.zone-header h3{font-size:14px;font-weight:700;flex:1}
+.zone-header .zone-count{font-size:11px;color:var(--tm-gray);font-weight:600}
+.zone-header .chevron{color:var(--tm-gray);font-size:14px;transition:transform .2s;margin-left:auto}
+.zone-header.open .chevron{transform:rotate(180deg)}
+.zone-body{display:none;padding:0 20px 16px 20px}
+.zone-header.open+.zone-body{display:block}
+
+/* CHECK ITEMS */
+.check-item{background:var(--tm-mid);border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;transition:border .2s;border:2px solid transparent}
+.check-item.validation-error{border-color:var(--tm-red);animation:shake .4s}
+.check-item.unanswered-highlight{border-color:var(--tm-amber);animation:pulse-amber 1.5s ease-in-out 3}
+@keyframes pulse-amber{0%,100%{border-color:var(--tm-amber)}50%{border-color:transparent}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* Missing items counter in bottom bar */
+.missing-count{
+  display:none;font-size:11px;font-weight:700;color:var(--tm-amber);
+  text-align:center;padding:6px 0 0;letter-spacing:.5px;
+}
+.missing-count.visible{display:block}
+.btn-show-missing{
+  background:var(--tm-amber);color:#000;font-size:11px;font-weight:700;
+  padding:4px 10px;border-radius:4px;margin-left:6px;
+  text-transform:uppercase;letter-spacing:.5px;
+}
+.check-question{font-size:13.5px;font-weight:500;margin-bottom:10px;line-height:1.4}
+.check-question .alert-info{display:block;font-size:11px;color:var(--tm-amber);margin-top:4px;font-weight:600}
+.check-actions{display:flex;gap:6px;margin-bottom:0}
+.btn-status{flex:1;padding:10px 8px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;transition:all .15s;border:2px solid transparent}
+.btn-pass{background:#1a2e1a;color:var(--tm-green);border-color:#1a2e1a}
+.btn-pass.selected{background:var(--tm-green);color:#fff;border-color:var(--tm-green)}
+.btn-fail{background:#2e1a1a;color:var(--tm-red);border-color:#2e1a1a}
+.btn-fail.selected{background:var(--tm-red);color:#fff;border-color:var(--tm-red)}
+.btn-attn{background:#2e2a1a;color:var(--tm-amber);border-color:#2e2a1a}
+.btn-attn.selected{background:var(--tm-amber);color:#000;border-color:var(--tm-amber)}
+
+.notes-wrap{margin-top:8px}
+.notes-wrap textarea{width:100%;padding:10px 12px;background:var(--tm-black);border:1px solid #444;border-radius:6px;color:#fff;font-size:13px;resize:vertical;min-height:60px}
+.notes-wrap textarea::placeholder{color:#555}
+.notes-wrap textarea:focus{outline:none;border-color:var(--tm-red)}
+.notes-wrap textarea.error{border-color:var(--tm-red);background:rgba(227,25,55,.05)}
+.notes-required{font-size:10px;color:var(--tm-red);font-weight:600;margin-top:4px}
+
+/* TEMPERATURE */
+.temp-input-wrap{margin-bottom:10px}
+.temp-input-row{display:flex;align-items:center;gap:8px}
+.temp-input{width:100px;padding:10px 12px;background:var(--tm-black);border:1px solid #444;border-radius:6px;color:#fff;font-size:15px;font-weight:600;text-align:center}
+.temp-input:focus{outline:none;border-color:var(--tm-red)}
+.temp-unit{font-size:13px;color:var(--tm-gray);font-weight:600}
+.temp-alert{margin-top:6px;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:600;display:none}
+.temp-alert.warning{display:block;background:rgba(227,25,55,.12);color:var(--tm-red);border:1px solid rgba(227,25,55,.3)}
+.temp-alert.ok{display:block;background:rgba(40,167,69,.1);color:var(--tm-green);border:1px solid rgba(40,167,69,.2)}
+
+/* BOTTOM BAR */
+.bottom-bar{position:sticky;bottom:0;background:var(--tm-dark);border-top:2px solid var(--tm-mid);padding:10px 20px 14px;display:flex;gap:10px;z-index:100;margin-top:auto}
+.bottom-bar .btn{flex:1;padding:14px;border-radius:var(--radius);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;transition:all .2s}
+.btn-save{background:var(--tm-mid);color:var(--tm-light)}
+.btn-save:hover{background:#333}
+.btn-submit{background:var(--tm-red);color:#fff}
+.btn-submit:hover{background:var(--tm-red-dark)}
+.btn-submit:disabled{opacity:.35;cursor:not-allowed}
+
+/* SUMMARY */
+.summary-screen{padding:24px 20px 40px}
+.summary-header{text-align:center;margin-bottom:24px}
+.summary-header .checkmark{width:64px;height:64px;border-radius:50%;background:rgba(40,167,69,.15);display:inline-flex;align-items:center;justify-content:center;font-size:32px;color:var(--tm-green);margin-bottom:12px}
+.summary-header h2{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:2px}
+.summary-header p{font-size:13px;color:var(--tm-gray);margin-top:4px}
+.summary-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
+.stat-card{background:var(--tm-dark);border-radius:var(--radius);padding:16px 12px;text-align:center}
+.stat-card .num{font-size:28px;font-weight:800;line-height:1}
+.stat-card .num.green{color:var(--tm-green)}
+.stat-card .num.red{color:var(--tm-red)}
+.stat-card .num.amber{color:var(--tm-amber)}
+.stat-card .label{font-size:10px;color:var(--tm-gray);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.summary-issues{margin-bottom:24px}
+.summary-issues h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;color:var(--tm-red)}
+.issue-item{background:var(--tm-dark);border-left:3px solid var(--tm-red);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;margin-bottom:8px}
+.issue-item .zone{font-size:11px;color:var(--tm-gray);font-weight:600;text-transform:uppercase}
+.issue-item .question{font-size:13px;font-weight:500;margin-top:2px}
+.issue-item .note{font-size:12px;color:var(--tm-amber);margin-top:4px;font-style:italic}
+.issue-item .status-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;padding:2px 6px;border-radius:3px;margin-top:4px}
+.issue-item .status-tag.fail{background:rgba(227,25,55,.15);color:var(--tm-red)}
+.issue-item .status-tag.attn{background:rgba(240,173,78,.15);color:var(--tm-amber)}
+.export-btns{display:flex;flex-direction:column;gap:10px}
+.btn-export{padding:16px;border-radius:var(--radius);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-align:center;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-download{background:var(--tm-red);color:#fff}
+.btn-download:hover{background:var(--tm-red-dark)}
+.btn-clipboard{background:var(--tm-mid);color:var(--tm-light);border:1px solid #444}
+.btn-clipboard:hover{background:#333}
+.btn-sharepoint{background:var(--tm-blue);color:#fff}
+.btn-sharepoint:hover{background:#2563eb}
+.btn-sharepoint:disabled{opacity:.4;cursor:not-allowed}
+.btn-new-patrol{background:none;color:var(--tm-gray);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:16px;margin-top:8px}
+.btn-new-patrol:hover{color:#fff}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);padding:10px 24px;border-radius:var(--radius);font-size:13px;font-weight:700;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90%;text-align:center;line-height:1.4}
+.toast.show{opacity:1}
+.toast.success{background:var(--tm-green);color:#fff}
+.toast.error{background:var(--tm-red);color:#fff}
+.toast.info{background:var(--tm-blue);color:#fff}
+
+/* SENDING OVERLAY */
+.sending-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:300;display:none}
+.sending-overlay.active{display:flex}
+.sending-box{background:var(--tm-dark);border-radius:12px;padding:32px 40px;text-align:center}
+.sending-box .spinner{width:40px;height:40px;border:3px solid var(--tm-mid);border-top-color:var(--tm-red);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sending-box p{font-size:14px;font-weight:600}
+
+/* SETTINGS MODAL */
+.settings-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:250;padding:20px}
+.settings-overlay.active{display:flex}
+.settings-card{background:var(--tm-dark);border:1px solid var(--tm-mid);border-radius:12px;padding:28px;width:100%;max-width:420px}
+.settings-card h3{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.settings-card label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--tm-gray);margin-bottom:6px;margin-top:16px}
+.settings-card label:first-of-type{margin-top:0}
+.settings-card input[type=text]{width:100%;padding:12px 14px;background:var(--tm-mid);border:1px solid #444;border-radius:var(--radius);color:#fff;font-size:13px;word-break:break-all}
+.settings-card input:focus{outline:none;border-color:var(--tm-red)}
+.settings-btns{display:flex;gap:10px;margin-top:24px}
+.settings-btns button{flex:1;padding:14px;border-radius:var(--radius);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px}
+.btn-settings-cancel{background:var(--tm-mid);color:var(--tm-light)}
+.btn-settings-save{background:var(--tm-green);color:#fff}
+.btn-settings-trigger{position:fixed;bottom:16px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--tm-mid);border:1px solid #444;color:var(--tm-gray);font-size:18px;display:flex;align-items:center;justify-content:center;z-index:90}
+.btn-settings-trigger:hover{background:#333;color:#fff}
+
+@media(max-width:380px){
+  .top-bar{padding:12px 14px}
+  .top-bar-text h1{font-size:14px}
+  .patrol-select,.summary-screen{padding:16px 14px 100px}
+  .zone-header,.zone-body{padding-left:14px;padding-right:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell" id="app">
+  <div class="top-bar">
+    <div class="tm-logo">T</div>
+    <div class="top-bar-text">
+      <h1>Carlsbad Controls</h1>
+      <p>Guard Patrol Checklist</p>
+    </div>
+    <div class="top-bar-right">
+      <div class="time" id="clock">--:--</div>
+      <div class="date" id="dateDisplay">---</div>
+    </div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="screen active" id="loginScreen">
+    <div class="login-screen">
+      <div class="login-card">
+        <div class="logo-big">T</div>
+        <h2>Guard Patrol</h2>
+        <p class="subtitle">Carlsbad HQ — Select your name to begin</p>
+        <label>Security Officer</label>
+        <div class="select-wrap">
+          <select id="userSelect">
+            <option value="">Choose your name…</option>
+            <option value="Angelina">Angelina</option>
+            <option value="Levi">Levi</option>
+            <option value="Lloyd">Lloyd</option>
+            <option value="AJ">AJ</option>
+            <option value="Securitas 1">Securitas 1</option>
+            <option value="Securitas 2">Securitas 2</option>
+            <option value="Ryan">Ryan</option>
+            <option value="Jason">Jason</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="btnLogin" disabled>Start Patrol</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATROL SELECT -->
+  <div class="screen" id="selectScreen">
+    <div class="patrol-select">
+      <h2 class="greeting" id="greetingText">Welcome</h2>
+      <p class="greeting-sub">Select a patrol to begin your rounds.</p>
+      <div id="resumeBanner" class="resume-banner" style="display:none">
+        <span>⏸</span>
+        <span>You have saved patrol(s) in progress. Tap to resume.</span>
+      </div>
+      <div id="configBanner"></div>
+      <div class="patrol-cards">
+        <div class="patrol-card" data-patrol="interior" id="cardInterior">
+          <div class="icon interior">🏢</div>
+          <div class="info"><h3>Interior Patrol</h3><p>15 zones · IDF rooms, electrical, hazmat & more</p></div>
+          <span class="arrow">›</span>
+        </div>
+        <div class="patrol-card" data-patrol="exterior" id="cardExterior">
+          <div class="icon exterior">🌿</div>
+          <div class="info"><h3>Exterior Patrol</h3><p>15 zones · Entrances, gates, perimeter & equipment</p></div>
+          <span class="arrow">›</span>
+        </div>
+        <div class="patrol-card" data-patrol="afterhours" id="cardAfterhours">
+          <div class="icon afterhours">🌙</div>
+          <div class="info"><h3>After-Hours — The Kingdom</h3><p>13 zones · After-hours only patrol</p></div>
+          <span class="arrow">›</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATROL CHECKLIST -->
+  <div class="screen" id="patrolScreen">
+    <div class="patrol-header" id="patrolHeader">
+      <div class="patrol-header-top">
+        <button class="btn-back" id="btnBackToSelect">←</button>
+        <h2 id="patrolTitle">Patrol</h2>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        <span class="progress-text" id="progressText">0%</span>
+      </div>
+    </div>
+    <div id="zonesContainer"></div>
+    <div class="bottom-bar" id="patrolBottomBar">
+      <div style="display:flex;flex-direction:column;width:100%;gap:4px">
+        <div class="missing-count" id="missingCount">
+          <span id="missingText"></span>
+          <button class="btn-show-missing" id="btnShowMissing" onclick="scrollToNextMissing()">Show Next →</button>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-save" id="btnSavePatrol">💾 Save</button>
+          <button class="btn btn-submit" id="btnSubmitPatrol">Submit Patrol ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="screen" id="summaryScreen">
+    <div class="summary-screen" id="summaryContent"></div>
+  </div>
+</div>
+
+<!-- SENDING OVERLAY -->
+<div class="sending-overlay" id="sendingOverlay">
+  <div class="sending-box">
+    <div class="spinner"></div>
+    <p>Sending to SharePoint…</p>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="settings-overlay" id="settingsOverlay">
+  <div class="settings-card">
+    <h3>⚙ Connection Settings</h3>
+    <label>Power Automate Webhook URL</label>
+    <input type="text" id="settingsWebhookUrl" placeholder="Paste your Power Automate HTTP POST URL here…">
+    <p style="font-size:11px;color:var(--tm-gray);margin-top:8px;line-height:1.4">This URL is from your Power Automate flow. It starts with <code style="color:var(--tm-amber)">https://prod-...</code></p>
+    <div class="settings-btns">
+      <button class="btn-settings-cancel" onclick="closeSettings()">Cancel</button>
+      <button class="btn-settings-save" onclick="saveSettings()">Save & Connect</button>
+    </div>
+  </div>
+</div>
+
+<button class="btn-settings-trigger" id="btnSettings" onclick="openSettings()" title="Connection Settings">⚙</button>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ══════════════════════════════════════════════
+// CONFIGURATION
+// ══════════════════════════════════════════════
+// *** POWER AUTOMATE WEBHOOK — HARDCODED FOR CARLSBAD SECURITY ***
+let WEBHOOK_URL = "https://default4f56e796915d4916a0f7066fbe562f.07.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/2cc8eb24a0f240d683089dae36ed5ecf/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=xzr2n4zC17i37MwOl9tvkua67Qv6FKOcdp3RCZu6Pkw";
+
+// Also check localStorage for override
+try { const saved = localStorage.getItem("tm_patrol_webhook"); if (saved) WEBHOOK_URL = saved; } catch(e) {}
+
+function openSettings() {
+  document.getElementById("settingsWebhookUrl").value = WEBHOOK_URL;
+  document.getElementById("settingsOverlay").classList.add("active");
+}
+function closeSettings() {
+  document.getElementById("settingsOverlay").classList.remove("active");
+}
+function saveSettings() {
+  const url = document.getElementById("settingsWebhookUrl").value.trim();
+  WEBHOOK_URL = url;
+  try { localStorage.setItem("tm_patrol_webhook", url); } catch(e) {}
+  closeSettings();
+  updateConfigBanner();
+  showToast(url ? "Webhook URL saved!" : "Webhook URL cleared", url ? "success" : "info");
+}
+function updateConfigBanner() {
+  const banner = document.getElementById("configBanner");
+  if (WEBHOOK_URL) {
+    banner.innerHTML = `<div class="config-banner connected">✓ Connected to SharePoint via Power Automate</div>`;
+  } else {
+    banner.innerHTML = `<div class="config-banner">⚠ Not connected — Tap ⚙ to paste your Power Automate webhook URL. Contact Ali Chitsaz (IT) for the URL.</div>`;
+  }
+}
+
+// ══════════════════════════════════════════════
+// PATROL DATA
+// ══════════════════════════════════════════════
+const PATROL_DATA = {
+  interior: {
+    title: "Interior Patrol",
+    zones: [
+      { name: "Hazmat", items: [
+        { q: "Is fire extinguisher 1 & 2 up to date?", type: "status" },
+        { q: "Do badge readers G1 and G2 work correctly?", type: "status" },
+        { q: "Is it closed and secure?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Is area clean?", type: "status" },
+        { q: "Is eye wash area all clear?", type: "status" },
+        { q: "Are chemical files present?", type: "status" },
+        { q: "Is roll-up gate secure?", type: "status" },
+        { q: "Is back exit door closed and secure?", type: "status" }
+      ]},
+      { name: "IDF 1.3 Facilities North", items: [
+        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
+        { q: "Is area clean?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Are panels closed and secure?", type: "status" },
+        { q: "Is badge reader G2 working properly?", type: "status" },
+        { q: "Does the key work on lock gate?", type: "status" }
+      ]},
+      { name: "Production Cage", items: [
+        { q: "Is it closed and secure?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Is the spill kit present?", type: "status" }
+      ]},
+      { name: "IDF 1.4 Shipping", items: [
+        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
+        { q: "Does key work when unlocking door?", type: "status" },
+        { q: "Is area clean?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Are panels closed and secure?", type: "status" }
+      ]},
+      { name: "IDF 2.2 Marketing", items: [
+        { q: "Does card reader D7 work properly?", type: "status" },
+        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
+        { q: "Is area clean?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Are panels closed and secure?", type: "status" }
+      ]},
+      { name: "Composite Lab Freezer", items: [
+        { q: "Temperature?", type: "temp", threshold: 40, thresholdDir: "over", contact: "Robert Simmons and Jason Schroeder" }
+      ]},
+      { name: "Electrical Room HR", items: [
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Are panels closed and secure?", type: "status" }
+      ]},
+      { name: "Electrical Room 2nd Floor Exec", items: [
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Are panels closed and secure?", type: "status" }
+      ]},
+      { name: "IDF 2.1 Customer Service", items: [
+        { q: "Does badge reader H1 work properly?", type: "status" },
+        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons and Jason Schroeder" },
+        { q: "Is area clean?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Are panels closed and secure?", type: "status" }
+      ]},
+      { name: "IDF 1.5 PGA", items: [
+        { q: "Does badge reader F13 work properly?", type: "status" },
+        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
+        { q: "Are panels closed and secure?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Does key unlock cage properly?", type: "status" }
+      ]},
+      { name: "Electrical Room Operations", items: [
+        { q: "Are panels closed and secure?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" }
+      ]},
+      { name: "IDF 1.2 Operations", items: [
+        { q: "Does badge reader C5 work properly?", type: "status" },
+        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
+        { q: "Is area clean?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Does key unlock cage properly?", type: "status" }
+      ]},
+      { name: "Pre-Action Room / UPS Room 1st Floor", items: [
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Is the valve facing up? (Vertical)", type: "status" },
+        { q: "Gauge reading?", type: "temp", threshold: 150, thresholdDir: "over", contact: "Robert Simmons or Jason Schroeder", unit: "PSI" }
+      ]},
+      { name: "IDF 1.1 Data Room IT", items: [
+        { q: "Is alarm sounding?", type: "status", alert: "If yes, notify Trevor Akers or Robert Simmons" },
+        { q: "Is the FM20 lid closed and secure?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Nothing tampered with?", type: "status" },
+        { q: "AC unit 1 & 2 closed and secure?", type: "status" },
+        { q: "No sounding alarms?", type: "status" },
+        { q: "Does the badge reader B6 work properly?", type: "status" },
+        { q: "Is the area clean?", type: "status" }
+      ]},
+      { name: "IDF 1.3 North Security Entrance", items: [
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Are the panels closed and secure?", type: "status" },
+        { q: "Does the badge reader work properly?", type: "status" },
+        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons" },
+        { q: "Is area clean?", type: "status" }
+      ]}
+    ]
+  },
+  exterior: {
+    title: "Exterior Patrol",
+    zones: [
+      { name: "Patio Entrance A11", items: [
+        { q: "Is it closed and secure?", type: "status" },
+        { q: "Does the badge reader work properly?", type: "status" }
+      ]},
+      { name: "Generator", items: [
+        { q: "Is it closed and secure?", type: "status" },
+        { q: "Does key #7 unlock properly?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "Is the lock tampered with?", type: "status" }
+      ]},
+      { name: "Bloom Energy", items: [
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "No trespassers?", type: "status" }
+      ]},
+      { name: "Fire Sprinkler Valves", items: [
+        { q: "Is it tampered with?", type: "status" },
+        { q: "Locked and secure?", type: "status" },
+        { q: "Does the left side read \"OPEN\"?", type: "status" }
+      ]},
+      { name: "Equipment Shed", items: [
+        { q: "Is it closed and secure?", type: "status" }
+      ]},
+      { name: "Compression Room", items: [
+        { q: "Is it closed and secure?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" }
+      ]},
+      { name: "North Entrance A14", items: [
+        { q: "Is door closed and secure?", type: "status" },
+        { q: "Does badge reader work properly?", type: "status" }
+      ]},
+      { name: "Boneyard", items: [
+        { q: "Are gates 1, 2, & 3 locked and secure?", type: "status" }
+      ]},
+      { name: "Dumpster", items: [
+        { q: "Is gate locked and secure?", type: "status" },
+        { q: "Is gate tampered with?", type: "status" }
+      ]},
+      { name: "West Entrance A3", items: [
+        { q: "Is door closed and secure?", type: "status" },
+        { q: "Is badge reader working properly?", type: "status" }
+      ]},
+      { name: "West Entrance Emergency Exit", items: [
+        { q: "Is door closed and secure?", type: "status" }
+      ]},
+      { name: "Front Entrance", items: [
+        { q: "Is badge reader working properly?", type: "status" },
+        { q: "Is door unlocked during business hours?", type: "status" }
+      ]},
+      { name: "TaylorMade Sign", items: [
+        { q: "Is sign tampered with?", type: "status" }
+      ]},
+      { name: "East Entrance A10", items: [
+        { q: "Is door closed and secure?", type: "status" },
+        { q: "Is the badge reader working properly?", type: "status" }
+      ]},
+      { name: "Café Back Door E8", items: [
+        { q: "No leaks, no hazards?", type: "status" },
+        { q: "No trespassers?", type: "status" }
+      ]}
+    ]
+  },
+  afterhours: {
+    title: "After-Hours — The Kingdom",
+    zones: [
+      { name: "Maintenance Shed", items: [
+        { q: "Is it locked and secure?", type: "status" },
+        { q: "No trespassers?", type: "status" }
+      ]},
+      { name: "Fire Valve Sprinkler", items: [
+        { q: "Does it say \"ON\"?", type: "status" },
+        { q: "Is the valve horizontal?", type: "status" },
+        { q: "Is it locked and secure?", type: "status" }
+      ]},
+      { name: "Front Door I1", items: [
+        { q: "Is it locked and secure?", type: "status" }
+      ]},
+      { name: "Front Lobby", items: [
+        { q: "No leaks, no hazards?", type: "status" }
+      ]},
+      { name: "LAB", items: [
+        { q: "Is it locked and secure?", type: "status" }
+      ]},
+      { name: "Back Door", items: [
+        { q: "Is it locked and secure?", type: "status" }
+      ]},
+      { name: "Side Wooden Gate", items: [
+        { q: "Is it locked and secure?", type: "status" }
+      ]},
+      { name: "Testing Door I3", items: [
+        { q: "Is it locked and secure?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" }
+      ]},
+      { name: "IDF Room", items: [
+        { q: "Is it locked and secure?", type: "status" },
+        { q: "Are the panels closed and secure?", type: "status" },
+        { q: "No leaks, no hazards?", type: "status" }
+      ]},
+      { name: "Eyewash Stations", items: [
+        { q: "Is it expired?", type: "status", alert: "If yes, report to Jason Schroeder" },
+        { q: "Is it full?", type: "status", alert: "If no, report to Jason Schroeder" }
+      ]},
+      { name: "Fire Extinguishers", items: [
+        { q: "Is it up to date?", type: "status", alert: "If no, report to Jason Schroeder" },
+        { q: "Is it visible for usage?", type: "status" }
+      ]},
+      { name: "Detex Emergency Door", items: [
+        { q: "Is exit locked and secure?", type: "status", alert: "Check once a week on Saturday" }
+      ]},
+      { name: "Inside Labs", items: [
+        { q: "Are there trip hazards? (wires, clutter, etc.)", type: "status" },
+        { q: "Are chemicals marked and labeled correctly?", type: "status" },
+        { q: "Any food present in labs? (No food allowed)", type: "status" },
+        { q: "Are the gates locked and secure? (No personnel in/out of gates)", type: "status" },
+        { q: "Is the area clean?", type: "status" },
+        { q: "Are the extinguishers visible?", type: "status" }
+      ]}
+    ]
+  }
+};
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let state = { currentUser: null, currentPatrol: null, responses: {}, startTime: null, saved: {} };
+const SAVE_KEY = "tm_patrol_state";
+function loadSaved() { try { const r = sessionStorage.getItem(SAVE_KEY); if (r) state.saved = JSON.parse(r); } catch(e) {} }
+function persistSave() { try { sessionStorage.setItem(SAVE_KEY, JSON.stringify(state.saved)); } catch(e) {} }
+
+// CLOCK
+function updateClock() {
+  const now = new Date();
+  document.getElementById("clock").textContent = now.toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit"});
+  document.getElementById("dateDisplay").textContent = now.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});
+}
+setInterval(updateClock,1000); updateClock();
+
+// NAVIGATION
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0,0);
+}
+
+// LOGIN
+const userSelect = document.getElementById("userSelect");
+const btnLogin = document.getElementById("btnLogin");
+userSelect.addEventListener("change",()=>{ btnLogin.disabled=!userSelect.value; });
+btnLogin.addEventListener("click",()=>{
+  state.currentUser=userSelect.value;
+  loadSaved();
+  document.getElementById("greetingText").textContent=`Welcome, ${state.currentUser}`;
+  updatePatrolCards();
+  updateConfigBanner();
+  showScreen("selectScreen");
+});
+
+// PATROL SELECT
+function updatePatrolCards(){
+  let hasSaved=false;
+  ["interior","exterior","afterhours"].forEach(type=>{
+    const card=document.getElementById("card"+type.charAt(0).toUpperCase()+type.slice(1));
+    if(state.saved[type]){card.classList.add("has-saved");hasSaved=true;}else{card.classList.remove("has-saved");}
+  });
+  document.getElementById("resumeBanner").style.display=hasSaved?"flex":"none";
+}
+document.querySelectorAll(".patrol-card").forEach(card=>{
+  card.addEventListener("click",()=>startPatrol(card.dataset.patrol));
+});
+
+function startPatrol(type){
+  state.currentPatrol=type;
+  if(state.saved[type]){state.responses={...state.saved[type].responses};state.startTime=state.saved[type].startTime;}
+  else{state.responses={};state.startTime=new Date().toISOString();}
+  renderPatrol();showScreen("patrolScreen");
+}
+
+// ══════════════════════════════════════════════
+// RENDER PATROL
+// ══════════════════════════════════════════════
+function renderPatrol(){
+  const data=PATROL_DATA[state.currentPatrol];
+  document.getElementById("patrolTitle").textContent=data.title;
+  const container=document.getElementById("zonesContainer");
+  container.innerHTML="";
+
+  data.zones.forEach((zone,zi)=>{
+    const section=document.createElement("div");section.className="zone-section";
+    const header=document.createElement("div");header.className="zone-header";header.dataset.zone=zi;
+    header.innerHTML=`<div class="zone-icon empty" id="zoneIcon_${zi}">📋</div><h3>${zone.name}</h3><span class="zone-count" id="zoneCount_${zi}">0/${zone.items.length}</span><span class="chevron">▾</span>`;
+    header.addEventListener("click",()=>header.classList.toggle("open"));
+    section.appendChild(header);
+
+    const body=document.createElement("div");body.className="zone-body";
+    zone.items.forEach((item,ii)=>{
+      const key=`${zi}|${ii}`;const existing=state.responses[key]||{};
+      const div=document.createElement("div");div.className="check-item";div.id=`item_${zi}_${ii}`;
+      let html="";
+
+      if(item.type==="temp"){
+        const unit=item.unit||"°F";const dir=item.thresholdDir||"over";
+        html+=`<div class="check-question">${item.q}<span class="alert-info">⚠ If ${dir} ${item.threshold}${unit==="PSI"?" PSI":"°"} contact ${item.contact}</span></div>`;
+        html+=`<div class="temp-input-wrap"><div class="temp-input-row"><input type="number" class="temp-input" id="temp_${zi}_${ii}" placeholder="--" value="${existing.temp||''}" data-zone="${zi}" data-item="${ii}" data-threshold="${item.threshold}" data-dir="${dir}"><span class="temp-unit">${unit}</span></div><div class="temp-alert" id="tempAlert_${zi}_${ii}"></div></div>`;
+      } else {
+        html+=`<div class="check-question">${item.q}`;
+        if(item.alert) html+=`<span class="alert-info">⚠ ${item.alert}</span>`;
+        html+=`</div>`;
+      }
+
+      html+=`<div class="check-actions">
+        <button class="btn-status btn-pass ${existing.status==='pass'?'selected':''}" data-key="${key}" data-status="pass">✓ Pass</button>
+        <button class="btn-status btn-fail ${existing.status==='fail'?'selected':''}" data-key="${key}" data-status="fail">✗ Fail</button>
+        <button class="btn-status btn-attn ${existing.status==='attn'?'selected':''}" data-key="${key}" data-status="attn">⚠ Attention</button>
+      </div>`;
+
+      const showNotes=existing.status==="fail"||existing.status==="attn"||existing.notes;
+      const isRequired=existing.status==="fail"||existing.status==="attn";
+      html+=`<div class="notes-wrap" id="notes_${zi}_${ii}" style="display:${showNotes?'block':'none'}">
+        <textarea placeholder="${isRequired?'Notes required — describe the issue…':'Add notes…'}" data-key="${key}">${existing.notes||''}</textarea>
+        ${isRequired?'<div class="notes-required">⚠ Notes are required for Fail / Needs Attention items</div>':''}
+      </div>`;
+
+      div.innerHTML=html;body.appendChild(div);
+    });
+    section.appendChild(body);container.appendChild(section);
+  });
+  attachPatrolListeners();updateProgress();updateZoneIcons();
+}
+
+function attachPatrolListeners(){
+  document.querySelectorAll(".btn-status").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const key=btn.dataset.key;const status=btn.dataset.status;
+      if(state.responses[key]&&state.responses[key].status===status){delete state.responses[key].status;}
+      else{if(!state.responses[key])state.responses[key]={};state.responses[key].status=status;}
+      const parent=btn.parentElement;
+      parent.querySelectorAll(".btn-status").forEach(b=>b.classList.remove("selected"));
+      if(state.responses[key]&&state.responses[key].status)btn.classList.add("selected");
+
+      const[zi,ii]=key.split("|");
+      const notesDiv=document.getElementById(`notes_${zi}_${ii}`);
+      const isRequired=state.responses[key]?.status==="fail"||state.responses[key]?.status==="attn";
+      if(isRequired){
+        notesDiv.style.display="block";
+        notesDiv.querySelector("textarea").placeholder="Notes required — describe the issue…";
+        let reqLabel=notesDiv.querySelector(".notes-required");
+        if(!reqLabel){reqLabel=document.createElement("div");reqLabel.className="notes-required";reqLabel.textContent="⚠ Notes are required for Fail / Needs Attention items";notesDiv.appendChild(reqLabel);}
+      } else {
+        if(!state.responses[key]?.notes)notesDiv.style.display="none";
+        const reqLabel=notesDiv.querySelector(".notes-required");if(reqLabel)reqLabel.remove();
+        notesDiv.querySelector("textarea").placeholder="Add notes…";
+      }
+      // Clear validation error if corrected
+      document.getElementById(`item_${zi}_${ii}`).classList.remove("validation-error");
+      document.getElementById(`item_${zi}_${ii}`).classList.remove("unanswered-highlight");
+      notesDiv.querySelector("textarea").classList.remove("error");
+      updateProgress();updateZoneIcons();
+    });
+  });
+
+  document.querySelectorAll(".notes-wrap textarea").forEach(ta=>{
+    ta.addEventListener("input",()=>{
+      const key=ta.dataset.key;
+      if(!state.responses[key])state.responses[key]={};
+      state.responses[key].notes=ta.value;
+      ta.classList.remove("error");
+      ta.closest(".check-item").classList.remove("validation-error");
+    });
+  });
+
+  document.querySelectorAll(".temp-input").forEach(inp=>{
+    inp.addEventListener("input",()=>{
+      const zi=inp.dataset.zone;const ii=inp.dataset.item;const key=`${zi}|${ii}`;
+      const threshold=parseFloat(inp.dataset.threshold);const dir=inp.dataset.dir;const val=parseFloat(inp.value);
+      if(!state.responses[key])state.responses[key]={};
+      state.responses[key].temp=inp.value;
+      const alertDiv=document.getElementById(`tempAlert_${zi}_${ii}`);
+      alertDiv.className="temp-alert";
+      if(inp.value&&!isNaN(val)){
+        const over=dir==="over"?val>threshold:val>=threshold;
+        if(over){alertDiv.className="temp-alert warning";alertDiv.textContent=`⚠ ALERT: Reading ${val} exceeds ${threshold}. Contact required immediately.`;}
+        else{alertDiv.className="temp-alert ok";alertDiv.textContent=`✓ Reading ${val} is within normal range.`;}
+      }
+    });
+  });
+}
+
+function updateProgress(){
+  const data=PATROL_DATA[state.currentPatrol];let total=0,done=0,missingItems=[];
+  data.zones.forEach((zone,zi)=>{zone.items.forEach((item,ii)=>{
+    total++;
+    const r=state.responses[`${zi}|${ii}`];
+    if(r&&r.status) done++;
+    else missingItems.push({zi,ii,zone:zone.name,q:item.q});
+  });});
+  const pct=total>0?Math.round((done/total)*100):0;
+  document.getElementById("progressFill").style.width=pct+"%";
+  document.getElementById("progressText").textContent=pct+"%";
+
+  // Update missing count display
+  const missingEl=document.getElementById("missingCount");
+  const missingTextEl=document.getElementById("missingText");
+  if(missingItems.length>0&&done>0){
+    missingEl.classList.add("visible");
+    missingTextEl.textContent=`${missingItems.length} item${missingItems.length>1?'s':''} remaining`;
+  } else {
+    missingEl.classList.remove("visible");
+  }
+  // Store for scroll-to-next
+  window._missingItems=missingItems;
+}
+
+let _scrollMissingIdx=0;
+function scrollToNextMissing(){
+  const missing=window._missingItems||[];
+  if(!missing.length)return;
+  _scrollMissingIdx=_scrollMissingIdx%missing.length;
+  const m=missing[_scrollMissingIdx];
+  // Open the zone
+  const section=document.getElementById(`item_${m.zi}_${m.ii}`).closest(".zone-section");
+  const header=section.querySelector(".zone-header");
+  if(!header.classList.contains("open"))header.classList.add("open");
+  // Highlight and scroll
+  const el=document.getElementById(`item_${m.zi}_${m.ii}`);
+  el.classList.remove("unanswered-highlight");
+  void el.offsetWidth; // force reflow
+  el.classList.add("unanswered-highlight");
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+  _scrollMissingIdx++;
+}
+
+function updateZoneIcons(){
+  const data=PATROL_DATA[state.currentPatrol];
+  data.zones.forEach((zone,zi)=>{
+    let total=zone.items.length,done=0,hasIssue=false;
+    zone.items.forEach((item,ii)=>{const r=state.responses[`${zi}|${ii}`];if(r&&r.status){done++;if(r.status==="fail"||r.status==="attn")hasIssue=true;}});
+    const icon=document.getElementById(`zoneIcon_${zi}`);const count=document.getElementById(`zoneCount_${zi}`);
+    count.textContent=`${done}/${total}`;icon.className="zone-icon";
+    if(done===total&&hasIssue){icon.classList.add("has-issue");icon.textContent="⚠";}
+    else if(done===total){icon.classList.add("done");icon.textContent="✓";}
+    else if(done>0){icon.classList.add("partial");icon.textContent="◐";}
+    else{icon.classList.add("empty");icon.textContent="📋";}
+  });
+}
+
+// ══════════════════════════════════════════════
+// VALIDATION
+// ══════════════════════════════════════════════
+function validatePatrol(){
+  const data=PATROL_DATA[state.currentPatrol];
+  let valid=true; let firstError=null; let unansweredCount=0; let missingNotesCount=0;
+  let firstUnanswered=null;
+
+  data.zones.forEach((zone,zi)=>{
+    zone.items.forEach((item,ii)=>{
+      const key=`${zi}|${ii}`;const r=state.responses[key];
+      const el=document.getElementById(`item_${zi}_${ii}`);
+
+      if(!r||!r.status){
+        unansweredCount++;
+        el.classList.add("unanswered-highlight");
+        // Open the zone so they can see it
+        const header=el.closest(".zone-section").querySelector(".zone-header");
+        if(!header.classList.contains("open")&&!firstUnanswered) header.classList.add("open");
+        if(!firstUnanswered) firstUnanswered=el;
+        return;
+      }
+
+      if((r.status==="fail"||r.status==="attn")&&(!r.notes||!r.notes.trim())){
+        valid=false; missingNotesCount++;
+        el.classList.add("validation-error");
+        const ta=document.querySelector(`#notes_${zi}_${ii} textarea`);
+        if(ta)ta.classList.add("error");
+        const header=el.closest(".zone-section").querySelector(".zone-header");
+        if(!header.classList.contains("open"))header.classList.add("open");
+        if(!firstError)firstError=el;
+      }
+    });
+  });
+
+  if(unansweredCount>0){
+    if(firstUnanswered)firstUnanswered.scrollIntoView({behavior:"smooth",block:"center"});
+    showToast(`${unansweredCount} item${unansweredCount>1?'s':''} still need a response. Tap "Show Next →" to find them.`,"error");
+    return false;
+  }
+  if(!valid){
+    if(firstError)firstError.scrollIntoView({behavior:"smooth",block:"center"});
+    showToast(`${missingNotesCount} item${missingNotesCount>1?'s':''} need notes (Fail/Attention require notes)`,"error");
+    return false;
+  }
+  return true;
+}
+
+// SAVE
+document.getElementById("btnSavePatrol").addEventListener("click",()=>{
+  state.saved[state.currentPatrol]={responses:{...state.responses},startTime:state.startTime};
+  persistSave();showToast("Patrol saved! You can resume later.","success");
+});
+
+document.getElementById("btnBackToSelect").addEventListener("click",()=>{
+  if(Object.keys(state.responses).length>0){
+    state.saved[state.currentPatrol]={responses:{...state.responses},startTime:state.startTime};persistSave();
+  }
+  updatePatrolCards();showScreen("selectScreen");
+});
+
+// SUBMIT
+document.getElementById("btnSubmitPatrol").addEventListener("click",()=>{
+  if(!validatePatrol())return;
+  delete state.saved[state.currentPatrol];persistSave();
+  renderSummary();showScreen("summaryScreen");
+});
+
+// ══════════════════════════════════════════════
+// SUMMARY
+// ══════════════════════════════════════════════
+function renderSummary(){
+  const data=PATROL_DATA[state.currentPatrol];
+  let passCount=0,failCount=0,attnCount=0;const issues=[];
+  data.zones.forEach((zone,zi)=>{
+    zone.items.forEach((item,ii)=>{
+      const r=state.responses[`${zi}|${ii}`];if(!r)return;
+      if(r.status==="pass")passCount++;
+      else if(r.status==="fail"){failCount++;issues.push({zone:zone.name,q:item.q,status:"fail",notes:r.notes,temp:r.temp});}
+      else if(r.status==="attn"){attnCount++;issues.push({zone:zone.name,q:item.q,status:"attn",notes:r.notes,temp:r.temp});}
+    });
+  });
+
+  const endTime=new Date();const startTime=new Date(state.startTime);
+  const duration=Math.round((endTime-startTime)/60000);
+
+  let html=`
+    <div class="summary-header">
+      <div class="checkmark">✓</div>
+      <h2>Patrol Complete</h2>
+      <p>${data.title} · ${state.currentUser} · ${duration} min</p>
+    </div>
+    <div class="summary-stats">
+      <div class="stat-card"><div class="num green">${passCount}</div><div class="label">Passed</div></div>
+      <div class="stat-card"><div class="num red">${failCount}</div><div class="label">Failed</div></div>
+      <div class="stat-card"><div class="num amber">${attnCount}</div><div class="label">Attention</div></div>
+    </div>`;
+
+  if(issues.length>0){
+    html+=`<div class="summary-issues"><h3>Issues Flagged (${issues.length})</h3>`;
+    issues.forEach(iss=>{
+      html+=`<div class="issue-item"><div class="zone">${iss.zone}</div><div class="question">${iss.q}</div>`;
+      if(iss.temp)html+=`<div class="note">Reading: ${iss.temp}</div>`;
+      if(iss.notes)html+=`<div class="note">${iss.notes}</div>`;
+      html+=`<span class="status-tag ${iss.status}">${iss.status==="fail"?"Failed":"Needs Attention"}</span></div>`;
+    });
+    html+=`</div>`;
+  }
+
+  html+=`<div class="export-btns">
+    <button class="btn-export btn-sharepoint" id="btnSendSP" onclick="sendToSharePoint()">☁ Send to SharePoint</button>
+    <div style="display:flex;gap:10px">
+      <button class="btn-export btn-clipboard" style="flex:1;font-size:11px;padding:12px" onclick="exportClipboard()">📋 Clipboard</button>
+      <button class="btn-export btn-download" style="flex:1;font-size:11px;padding:12px;background:var(--tm-mid);color:var(--tm-light)" onclick="exportXLSX()">📥 Excel Backup</button>
+    </div>
+    <button class="btn-new-patrol" onclick="newPatrol()">← Start New Patrol</button>
+  </div>`;
+
+  document.getElementById("summaryContent").innerHTML=html;
+
+  // Auto-send to SharePoint
+  if(WEBHOOK_URL) sendToSharePoint();
+}
+
+// ══════════════════════════════════════════════
+// EXPORT FUNCTIONS
+// ══════════════════════════════════════════════
+function buildExportRows(){
+  const data=PATROL_DATA[state.currentPatrol];
+  const rows=[];const now=new Date().toLocaleString("en-US");
+  data.zones.forEach((zone,zi)=>{
+    zone.items.forEach((item,ii)=>{
+      const r=state.responses[`${zi}|${ii}`]||{};
+      rows.push({
+        PatrolType:data.title, Zone:zone.name, Checkpoint:item.q,
+        Status:(r.status||"").toUpperCase(), Reading:r.temp||"",
+        Notes:r.notes||"", Officer:state.currentUser, Timestamp:now,
+        PatrolStart:new Date(state.startTime).toLocaleString("en-US"),
+        PatrolEnd:now
+      });
+    });
+  });
+  return rows;
+}
+
+function exportXLSX(){
+  const rows=buildExportRows();
+  const headers=["PatrolType","Zone","Checkpoint","Status","Reading","Notes","Officer","Timestamp","PatrolStart","PatrolEnd"];
+  const aoa=[headers,...rows.map(r=>headers.map(h=>r[h]))];
+  const ws=XLSX.utils.aoa_to_sheet(aoa);
+  ws['!cols']=[{wch:24},{wch:28},{wch:50},{wch:14},{wch:12},{wch:40},{wch:14},{wch:22},{wch:22},{wch:22}];
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Patrol Report");
+  const dateStr=new Date().toISOString().slice(0,10);
+  XLSX.writeFile(wb,`TM_Patrol_${state.currentPatrol}_${state.currentUser}_${dateStr}.xlsx`);
+  showToast("Excel file downloaded!","success");
+}
+
+function exportClipboard(){
+  const rows=buildExportRows();
+  const headers=["PatrolType","Zone","Checkpoint","Status","Reading","Notes","Officer","Timestamp"];
+  const csv=[headers.join("\t"),...rows.map(r=>headers.map(h=>`"${String(r[h]).replace(/"/g,'""')}"`).join("\t"))].join("\n");
+  navigator.clipboard.writeText(csv).then(()=>showToast("Copied to clipboard! Paste into Excel.","success")).catch(()=>{
+    const ta=document.createElement("textarea");ta.value=csv;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
+    showToast("Copied to clipboard!","success");
+  });
+}
+
+// ══════════════════════════════════════════════
+// SEND TO SHAREPOINT VIA POWER AUTOMATE
+// ══════════════════════════════════════════════
+async function sendToSharePoint(){
+  if(!WEBHOOK_URL){showToast("No webhook URL configured. Tap ⚙ to set up.","error");return;}
+  const overlay=document.getElementById("sendingOverlay");overlay.classList.add("active");
+  const rows=buildExportRows();
+  const payload = {
+    patrolType: PATROL_DATA[state.currentPatrol].title,
+    officer: state.currentUser,
+    timestamp: new Date().toISOString(),
+    patrolStart: state.startTime,
+    patrolEnd: new Date().toISOString(),
+    rows: rows
+  };
+
+  try{
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(payload)
+    });
+    if(response.ok || response.status === 202){
+      showToast("✓ Sent to SharePoint successfully!","success");
+    } else {
+      const errText = await response.text().catch(()=>"");
+      console.error("Webhook response:", response.status, errText);
+      showToast(`Send failed (${response.status}). Check flow run history in Power Automate.`,"error");
+    }
+  } catch(err){
+    console.error("Webhook error:", err);
+    showToast("Connection error — make sure you're accessing this page from SharePoint.","error");
+  } finally {
+    overlay.classList.remove("active");
+  }
+}
+
+function newPatrol(){state.responses={};state.currentPatrol=null;updatePatrolCards();updateConfigBanner();showScreen("selectScreen");}
+
+// ══════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════
+function showToast(msg,type="success"){
+  const t=document.getElementById("toast");t.textContent=msg;
+  t.className="toast "+type;t.classList.add("show");
+  const duration=type==="error"?4500:3000;
+  setTimeout(()=>t.classList.remove("show"),duration);
+}
+</script>
+</body>
+</html>
