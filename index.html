@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Carlsbad Controls — TaylorMade Guard Patrol</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>TAYLORMADE | CARLSBAD CONTROLS | GUARD PATROL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Brand note: DIN Next 79 is the approved TaylorMade typeface (Manual v12 §8.0).
+     Using Barlow as closest Google Fonts substitute until licensed DIN Next 79 web font is provided. -->
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -14,7 +18,7 @@
   --radius:10px;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.05);
 }
 html{font-size:16px;-webkit-text-size-adjust:100%}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg-alt);color:var(--text);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;background:var(--bg-alt);color:var(--text);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased;letter-spacing:0}
 button{cursor:pointer;font-family:inherit;border:none}
 input,select,textarea{font-family:inherit}
 .app-shell{max-width:520px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg)}
@@ -22,12 +26,12 @@ input,select,textarea{font-family:inherit}
 /* ─── TAYLORMADE BRAND MARKS ─── */
 .tm-bug{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .tm-bug svg{display:block}
-.tm-wordmark{font-family:'Oswald',sans-serif;font-weight:700;font-style:italic;color:var(--text);letter-spacing:-0.5px;line-height:1}
+.tm-wordmark{font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-weight:700;font-style:italic;color:var(--text);letter-spacing:-0.5px;line-height:1}
 
 /* TOP BAR */
-.top-bar{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.top-bar{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
 .top-bar .tm-bug svg{width:28px;height:28px}
-.top-bar-text h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1.5px;line-height:1.2;color:var(--text)}
+.top-bar-text h1{font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.1em;line-height:1.2;color:var(--text)}
 .top-bar-text p{font-size:10px;color:var(--text-light);letter-spacing:.5px;margin-top:1px}
 .top-bar-right{margin-left:auto;text-align:right}
 .top-bar-right .time{font-size:12px;font-weight:600;color:var(--text)}
@@ -42,21 +46,21 @@ input,select,textarea{font-family:inherit}
 .login-brand .tm-bug{margin-bottom:10px}
 .login-brand .tm-bug svg{width:48px;height:48px}
 .login-brand .tm-wordmark{font-size:28px;display:block;margin-bottom:12px}
-.login-divider{width:48px;height:2px;background:var(--red);margin:0 auto 24px;border-radius:1px}
-.login-card h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:4px;color:var(--text)}
-.login-card .subtitle{font-size:13px;color:var(--text-light);margin-bottom:28px}
-.login-card label{display:block;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text-light);margin-bottom:8px}
+.login-divider{width:40px;height:2px;background:var(--text);margin:0 auto 24px;border-radius:1px}
+.login-card h2{font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;color:var(--text)}
+.login-card .subtitle{font-size:13px;color:var(--text-light);margin-bottom:28px;letter-spacing:.01em}
+.login-card label{display:block;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text-light);margin-bottom:8px}
 .select-wrap{position:relative;margin-bottom:24px}
 .select-wrap select{width:100%;padding:14px 16px;padding-right:40px;background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:15px;font-weight:500;appearance:none;-webkit-appearance:none}
 .select-wrap::after{content:'▾';position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--text-light);pointer-events:none;font-size:14px}
 .select-wrap select:focus{outline:none;border-color:var(--text)}
-.btn-primary{width:100%;padding:16px;background:var(--text);color:#fff;font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:2px;border-radius:var(--radius);transition:background .2s}
+.btn-primary{width:100%;padding:16px;background:var(--text);color:#fff;font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.08em;border-radius:var(--radius);transition:background .2s}
 .btn-primary:hover{background:#333}
 .btn-primary:disabled{opacity:.25;cursor:not-allowed}
 
 /* PATROL SELECT */
 .patrol-select{padding:24px 20px}
-.greeting{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;margin-bottom:4px;color:var(--text)}
+.greeting{font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px;color:var(--text)}
 .greeting-sub{font-size:13px;color:var(--text-light);margin-bottom:24px}
 .patrol-cards{display:flex;flex-direction:column;gap:10px}
 .patrol-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:16px;transition:all .2s;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.03)}
@@ -65,12 +69,13 @@ input,select,textarea{font-family:inherit}
 .patrol-card .icon.interior{background:#eef2ff;color:var(--blue)}
 .patrol-card .icon.exterior{background:#ecfdf5;color:var(--green)}
 .patrol-card .icon.afterhours{background:#fef2f2;color:var(--red)}
-.patrol-card .info h3{font-size:14px;font-weight:700;margin-bottom:2px;color:var(--text)}
+.patrol-card .icon.afterhoursmain{background:#f3f4f6;color:#374151}
+.patrol-card .info h3{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;color:var(--text)}
 .patrol-card .info p{font-size:12px;color:var(--text-light)}
 .patrol-card .arrow{margin-left:auto;color:var(--text-light);font-size:18px}
 .patrol-card.has-saved .info h3::after{content:'SAVED';font-size:9px;background:var(--amber);color:#fff;padding:2px 6px;border-radius:3px;margin-left:8px;font-weight:700;vertical-align:middle}
 .resume-banner{background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;font-size:13px;color:#92400e;display:flex;align-items:center;gap:8px}
-.config-banner{border-radius:var(--radius);padding:10px 16px;margin:16px 20px 0;font-size:12px;line-height:1.5}
+.config-banner{border-radius:var(--radius);padding:10px 16px;margin:16px 20px 0;font-size:11px;line-height:1.5;font-weight:500;letter-spacing:.02em}
 .config-banner.connected{background:#ecfdf5;border:1px solid #bbf7d0;color:#166534}
 
 /* PATROL CHECKLIST */
@@ -79,7 +84,7 @@ input,select,textarea{font-family:inherit}
 .patrol-header-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
 .btn-back{background:none;color:var(--text-light);font-size:20px;padding:4px 8px;border-radius:4px;line-height:1}
 .btn-back:hover{color:var(--text);background:var(--bg-alt)}
-.patrol-header-top h2{font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;flex:1;color:var(--text)}
+.patrol-header-top h2{font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;flex:1;color:var(--text)}
 .progress-wrap{display:flex;align-items:center;gap:10px}
 .progress-bar{flex:1;height:4px;background:var(--bg-alt);border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;background:var(--text);border-radius:2px;transition:width .3s}
@@ -93,7 +98,7 @@ input,select,textarea{font-family:inherit}
 .zone-header .zone-icon.partial{background:#fef9c3;color:var(--amber)}
 .zone-header .zone-icon.empty{background:var(--bg-alt);color:var(--text-light)}
 .zone-header .zone-icon.has-issue{background:#fee2e2;color:var(--red)}
-.zone-header h3{font-size:13px;font-weight:700;flex:1;color:var(--text)}
+.zone-header h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;flex:1;color:var(--text)}
 .zone-header .zone-count{font-size:11px;color:var(--text-light);font-weight:600}
 .zone-header .chevron{color:var(--text-light);font-size:14px;transition:transform .2s;margin-left:auto}
 .zone-header.open .chevron{transform:rotate(180deg)}
@@ -105,13 +110,13 @@ input,select,textarea{font-family:inherit}
 .check-item.unanswered-highlight{border-color:var(--amber);animation:pulse-amber 1.5s ease-in-out 3}
 @keyframes pulse-amber{0%,100%{border-color:var(--amber)}50%{border-color:transparent}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.missing-count{display:none;font-size:11px;font-weight:700;color:var(--amber);text-align:center;padding:6px 0 0;letter-spacing:.5px}
+.missing-count{display:none;font-size:11px;font-weight:700;color:var(--amber);text-align:center;padding:6px 0 0;letter-spacing:.08em}
 .missing-count.visible{display:block}
-.btn-show-missing{background:var(--amber);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;margin-left:6px;text-transform:uppercase;letter-spacing:.5px}
-.check-question{font-size:13px;font-weight:500;margin-bottom:10px;line-height:1.4;color:var(--text)}
+.btn-show-missing{background:var(--amber);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;margin-left:6px;text-transform:uppercase;letter-spacing:.08em}
+.check-question{font-size:13px;font-weight:500;margin-bottom:12px;line-height:1.5;color:var(--text);letter-spacing:0}
 .check-question .alert-info{display:block;font-size:11px;color:var(--amber);margin-top:4px;font-weight:600}
 .check-actions{display:flex;gap:6px}
-.btn-status{flex:1;padding:10px 8px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;transition:all .15s;border:1.5px solid var(--border)}
+.btn-status{flex:1;padding:10px 8px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;transition:all .15s;border:1.5px solid var(--border)}
 .btn-pass{background:#f0fdf4;color:var(--green)}
 .btn-pass.selected{background:var(--green);color:#fff;border-color:var(--green)}
 .btn-fail{background:#fef2f2;color:var(--red)}
@@ -136,7 +141,7 @@ input,select,textarea{font-family:inherit}
 .temp-alert.ok{display:block;background:#f0fdf4;color:var(--green);border:1px solid #bbf7d0}
 
 .bottom-bar{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border);padding:10px 20px 14px;display:flex;gap:10px;z-index:100;margin-top:auto}
-.bottom-bar .btn{flex:1;padding:14px;border-radius:var(--radius);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;transition:all .2s}
+.bottom-bar .btn{flex:1;padding:14px;border-radius:var(--radius);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;transition:all .2s}
 .btn-save{background:var(--bg-alt);color:var(--text-mid);border:1px solid var(--border)}
 .btn-save:hover{background:#eee}
 .btn-submit{background:var(--text);color:#fff}
@@ -145,31 +150,31 @@ input,select,textarea{font-family:inherit}
 .summary-screen{padding:24px 20px 40px}
 .summary-header{text-align:center;margin-bottom:24px}
 .summary-header .checkmark{width:56px;height:56px;border-radius:50%;background:#dcfce7;display:inline-flex;align-items:center;justify-content:center;font-size:28px;color:var(--green);margin-bottom:12px}
-.summary-header h2{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text)}
+.summary-header h2{font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text)}
 .summary-header p{font-size:13px;color:var(--text-light);margin-top:4px}
 .summary-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:24px}
 .stat-card{background:var(--bg-alt);border-radius:var(--radius);padding:16px 12px;text-align:center}
-.stat-card .num{font-size:28px;font-weight:800;line-height:1}
+.stat-card .num{font-size:32px;font-weight:800;line-height:1;letter-spacing:-.01em}
 .stat-card .num.green{color:var(--green)}
 .stat-card .num.red{color:var(--red)}
 .stat-card .num.amber{color:var(--amber)}
-.stat-card .label{font-size:10px;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.stat-card .label{font-size:10px;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-top:6px}
 .summary-issues{margin-bottom:24px}
-.summary-issues h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;color:var(--red)}
+.summary-issues h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;color:var(--red)}
 .issue-item{background:var(--bg-alt);border-left:3px solid var(--red);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;margin-bottom:8px}
-.issue-item .zone{font-size:11px;color:var(--text-light);font-weight:600;text-transform:uppercase}
+.issue-item .zone{font-size:11px;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
 .issue-item .question{font-size:13px;font-weight:500;margin-top:2px;color:var(--text)}
 .issue-item .note{font-size:12px;color:var(--amber);margin-top:4px;font-style:italic}
 .issue-item .status-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;padding:2px 6px;border-radius:3px;margin-top:4px}
 .issue-item .status-tag.fail{background:#fee2e2;color:var(--red)}
 .issue-item .status-tag.attn{background:#fef9c3;color:var(--amber)}
 .export-btns{display:flex;flex-direction:column;gap:10px}
-.btn-export{padding:16px;border-radius:var(--radius);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-align:center;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-export{padding:16px;border-radius:var(--radius);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;text-align:center;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-sharepoint{background:var(--text);color:#fff}
 .btn-sharepoint:hover{background:#333}
 .btn-download,.btn-clipboard{background:var(--bg-alt);color:var(--text);border:1px solid var(--border)}
 .btn-download:hover,.btn-clipboard:hover{background:#eee}
-.btn-new-patrol{background:none;color:var(--text-light);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:16px;margin-top:8px}
+.btn-new-patrol{background:none;color:var(--text-light);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:16px;margin-top:8px}
 .btn-new-patrol:hover{color:var(--text)}
 .toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);padding:10px 24px;border-radius:var(--radius);font-size:13px;font-weight:700;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90%;text-align:center;line-height:1.4;box-shadow:var(--shadow)}
 .toast.show{opacity:1}
@@ -188,7 +193,7 @@ input,select,textarea{font-family:inherit}
 <body>
 <div class="app-shell" id="app">
   <div class="top-bar">
-    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAcAFoDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7LriPGfxa+G3g6+Nh4j8ZaTY3i/ftjNvlT/eRAWX8QK3vHGuaf4a8I6pr2rJdPYWNs81wLWNnk8sD5ioXB4HOcjGM5GK+a/gz8QPgn8QPiTD4Q8NfBayVbiOaaTUb6wtnZQilizg7mOTgZLE5YUAfQ3gn4g+CfGqt/wAIt4o0vVnQZeK3uAZEHqUOGA9yK6evmG++I3wU0H4ka9B4b8C6JZ6n4YtpCuvQWCpEt437lYFWFfMky8hQ49HxwM1HZ/tG+MLG+vU8SaBpEGn6Rr+nafq18IZ7fyILlXLN5TszK8eznJIOegoA+oqK+P8Ax78Y/E2r6l4O8SXunTWGiQTX/iSCws55Iri6063XbbNcc4xLJnjG0Lzzmui1X9ofxj4YtxJ4m0rwrO2oeGH1zTl0u4lc2rHHlR3O48hiwG5cc8CgD6eoyK+S/jx44+L8vhjQbGW8tfDOq3tje68U0G5l8yG0trLzCk7sBy0hIwvAwOSRmsCH4s+JdW+IfgzxLe+MdV0nwXFbF5lWRlS7hsoVNxcSquS4luS0S8ZIUjFAH2nRXyrcftL+L9GTX4tZ8MaddTWenW1zZyRQz2arJcSqkaTLMxbaVYvu+XIGMDPGH4t+LvjnRfixdarrcOk6jd+G9LisY7TQ7+d9Pmvr2QeW0gxnKpvBXkkqMEZ4APsaivLvgt4s8beLr/Vf+Eq0mXSo9KdY4ZY9PmtYNREibsiOf96jRlSDzg7wa9RoAbNHHNE8UqLJG6lWVhkMD1BHcV4dP8GY/hto/jXW/g9pgbxPr0K29lHPcLHHp6Mfn8pm6AE7wCTyqDoK9zooA+ff2bP2fLTwd4B1jT/iBY6XrWoa9NG97buvnwpHHzGmWHLBizFh3Ix0zXS+NPgV4f16KHRdOuLbw74Tlkhm1XRtM0yCIai8TAoXmxvUAAD5e2ecmvXaKAMSXwj4Xl1Bb+Xw/pklytgdNEj2yEi0PWDkf6v/AGelY1l8J/hpZafeafa+BPD0Vre7ftUS2CbZgrBlDccgMAQOgIrtKKAMfVfC3hzVb577UtD0+7unsZNPaWaBWY2z53w5P8DZOR0NUG+HngZoY4W8I6IYo9POmohs02ralixhAxwhYk49ea6eigDkLL4YfDuy0u90u08E6BBZX0KQ3cKWKBZ0Q7lDjHzYJyCeQeafZfDT4fWWmX+mWngrQILLUI447y3SwjEc6x52bxjDbckgnkE5611lFAGR4T8M+H/Celf2V4a0ey0my8wyGC0hEalzjLEDqTgc+wrXoooA/9k=" alt="TaylorMade" style="height:24px;object-fit:contain;flex-shrink:0">
+    <img src="data:image/jpeg;base64,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" alt="TaylorMade" style="height:26px;object-fit:contain;flex-shrink:0;margin-right:2px">
     <div class="top-bar-text">
       <h1>Carlsbad Controls</h1>
       <p>Guard Patrol Checklist</p>
@@ -234,9 +239,10 @@ input,select,textarea{font-family:inherit}
       <div id="resumeBanner" class="resume-banner" style="display:none"><span>⏸</span><span>You have saved patrol(s) in progress. Tap to resume.</span></div>
       <div id="configBanner"></div>
       <div class="patrol-cards">
-        <div class="patrol-card" data-patrol="interior" id="cardInterior"><div class="icon interior">🏢</div><div class="info"><h3>Interior Patrol</h3><p>15 zones · IDF rooms, electrical, hazmat & more</p></div><span class="arrow">›</span></div>
-        <div class="patrol-card" data-patrol="exterior" id="cardExterior"><div class="icon exterior">🌿</div><div class="info"><h3>Exterior Patrol</h3><p>15 zones · Entrances, gates, perimeter & equipment</p></div><span class="arrow">›</span></div>
+        <div class="patrol-card" data-patrol="interior" id="cardInterior"><div class="icon interior">🏢</div><div class="info"><h3>Interior Patrol</h3><p>14 zones · IDF rooms, electrical, hazmat & more</p></div><span class="arrow">›</span></div>
+        <div class="patrol-card" data-patrol="exterior" id="cardExterior"><div class="icon exterior">🌿</div><div class="info"><h3>Exterior Patrol</h3><p>16 zones · Entrances, gates, perimeter & equipment</p></div><span class="arrow">›</span></div>
         <div class="patrol-card" data-patrol="afterhours" id="cardAfterhours"><div class="icon afterhours">🌙</div><div class="info"><h3>After-Hours — The Kingdom</h3><p>13 zones · After-hours only patrol</p></div><span class="arrow">›</span></div>
+        <div class="patrol-card" data-patrol="afterhoursMain" id="cardAfterhoursMain"><div class="icon afterhoursmain">🏭</div><div class="info"><h3>After-Hours — Main Building</h3><p>12 zones · Labs, kitchens, parking & perimeter</p></div><span class="arrow">›</span></div>
       </div>
     </div>
   </div>
@@ -299,8 +305,9 @@ const PATROL_DATA = {
         { q: "Is roll-up gate secure?", type: "status" },
         { q: "Is back exit door closed and secure?", type: "status" }
       ]},
-      { name: "IDF 1.3 Facilities North", items: [
+      { name: "IDF 1.3 North Entrance", items: [
         { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
+        { q: "Is fire extinguisher up to date?", type: "status" },
         { q: "Is area clean?", type: "status" },
         { q: "No leaks, no hazards?", type: "status" },
         { q: "Are panels closed and secure?", type: "status" },
@@ -315,18 +322,22 @@ const PATROL_DATA = {
       { name: "IDF 1.4 Shipping", items: [
         { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
         { q: "Does key work when unlocking door?", type: "status" },
+        { q: "Does the cage unlock properly?", type: "status" },
+        { q: "Is cage closed and secure?", type: "status" },
         { q: "Is area clean?", type: "status" },
         { q: "No leaks, no hazards?", type: "status" },
         { q: "Are panels closed and secure?", type: "status" }
       ]},
       { name: "IDF 2.2 Marketing", items: [
         { q: "Does card reader D7 work properly?", type: "status" },
+        { q: "Is fire extinguisher up to date?", type: "status" },
         { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
         { q: "Is area clean?", type: "status" },
         { q: "No leaks, no hazards?", type: "status" },
         { q: "Are panels closed and secure?", type: "status" }
       ]},
       { name: "Composite Lab Freezer", items: [
+        { q: "Does badge reader A12 work properly?", type: "status" },
         { q: "Temperature?", type: "temp", threshold: 40, thresholdDir: "over", contact: "Robert Simmons and Jason Schroeder" }
       ]},
       { name: "Electrical Room HR", items: [
@@ -334,6 +345,7 @@ const PATROL_DATA = {
         { q: "Are panels closed and secure?", type: "status" }
       ]},
       { name: "Electrical Room 2nd Floor Exec", items: [
+        { q: "Is the fire extinguisher up to date?", type: "status" },
         { q: "No leaks, no hazards?", type: "status" },
         { q: "Are panels closed and secure?", type: "status" }
       ]},
@@ -365,7 +377,9 @@ const PATROL_DATA = {
       { name: "Pre-Action Room / UPS Room 1st Floor", items: [
         { q: "No leaks, no hazards?", type: "status" },
         { q: "Is the valve facing up? (Vertical)", type: "status" },
-        { q: "Gauge reading?", type: "temp", threshold: 150, thresholdDir: "over", contact: "Robert Simmons or Jason Schroeder", unit: "PSI" }
+        { q: "Gauge reading?", type: "temp", threshold: 150, thresholdDir: "over", contact: "Robert Simmons or Jason Schroeder", unit: "PSI" },
+        { q: "AC 1 temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
+        { q: "AC 2 temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" }
       ]},
       { name: "IDF 1.1 Data Room IT", items: [
         { q: "Is alarm sounding?", type: "status", alert: "If yes, notify Trevor Akers or Robert Simmons" },
@@ -376,13 +390,6 @@ const PATROL_DATA = {
         { q: "No sounding alarms?", type: "status" },
         { q: "Does the badge reader B6 work properly?", type: "status" },
         { q: "Is the area clean?", type: "status" }
-      ]},
-      { name: "IDF 1.3 North Security Entrance", items: [
-        { q: "No leaks, no hazards?", type: "status" },
-        { q: "Are the panels closed and secure?", type: "status" },
-        { q: "Does the badge reader work properly?", type: "status" },
-        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons" },
-        { q: "Is area clean?", type: "status" }
       ]}
     ]
   },
@@ -396,9 +403,14 @@ const PATROL_DATA = {
       { name: "Generator", items: [
         { q: "Is it closed and secure?", type: "status" },
         { q: "Does key #7 unlock properly?", type: "status" },
+        { q: "Does the Master key (green) unlock properly?", type: "status" },
         { q: "No leaks, no hazards?", type: "status" },
         { q: "Is the lock tampered with?", type: "status" }
       ]},
+      { name: "HR Back Entrance", items: [
+        { q: "Is it closed and secure?", type: "status" }
+      ]},
+
       { name: "Bloom Energy", items: [
         { q: "No leaks, no hazards?", type: "status" },
         { q: "No trespassers?", type: "status" }
@@ -506,6 +518,69 @@ const PATROL_DATA = {
         { q: "Are the extinguishers visible?", type: "status" }
       ]}
     ]
+  },
+  afterhoursMain: {
+    title: "After-Hours — Main Building",
+    zones: [
+      { name: "Labs", items: [
+        { q: "Are all labs secure?", type: "status" }
+      ]},
+      { name: "CNC", items: [
+        { q: "Is door locked and secure?", type: "status" },
+        { q: "No leaks or spills?", type: "status" },
+        { q: "No smoke from machines?", type: "status" },
+        { q: "Any trip hazards?", type: "status" }
+      ]},
+      { name: "PGA", items: [
+        { q: "Is door locked and secure?", type: "status" },
+        { q: "No leaks or spills?", type: "status" },
+        { q: "No smoke from machines?", type: "status" },
+        { q: "Any trip hazards?", type: "status" }
+      ]},
+      { name: "Ball Lab", items: [
+        { q: "Is door locked and secure?", type: "status" },
+        { q: "No leaks or spills?", type: "status" },
+        { q: "No smoke from machines?", type: "status" },
+        { q: "Any trip hazards?", type: "status" }
+      ]},
+      { name: "Endurance Lab", items: [
+        { q: "Is door locked and secure?", type: "status" },
+        { q: "No leaks or spills?", type: "status" },
+        { q: "No smoke from machines?", type: "status" },
+        { q: "Any trip hazards?", type: "status" }
+      ]},
+      { name: "Putter Lab", items: [
+        { q: "Is door locked and secure?", type: "status" },
+        { q: "No leaks or spills?", type: "status" },
+        { q: "No smoke from machines?", type: "status" },
+        { q: "Any trip hazards?", type: "status" }
+      ]},
+      { name: "Composite Lab", items: [
+        { q: "Is door locked and secure?", type: "status" },
+        { q: "No leaks or spills?", type: "status" },
+        { q: "No smoke from machines?", type: "status" },
+        { q: "Any trip hazards?", type: "status" }
+      ]},
+      { name: "Restrooms", items: [
+        { q: "Any leaks or spills?", type: "status" },
+        { q: "Is everything functioning correctly?", type: "status" }
+      ]},
+      { name: "Kitchens", items: [
+        { q: "Any leaks or spills?", type: "status" },
+        { q: "Freezer temperature?", type: "temp", threshold: 40, thresholdDir: "over", contact: "Robert Simmons or Jason Schroeder" },
+        { q: "Fire extinguisher up to date and easy access?", type: "status" }
+      ]},
+      { name: "Parking Lot Lights", items: [
+        { q: "All lights functional?", type: "status" }
+      ]},
+      { name: "Exterior Gates", items: [
+        { q: "Is it closed and secure?", type: "status" }
+      ]},
+      { name: "Dumpster", items: [
+        { q: "Is it closed and secure?", type: "status" },
+        { q: "No tampering?", type: "status" }
+      ]}
+    ]
   }
 };
 
@@ -548,8 +623,10 @@ btnLogin.addEventListener("click",()=>{
 // PATROL SELECT
 function updatePatrolCards(){
   let hasSaved=false;
-  ["interior","exterior","afterhours"].forEach(type=>{
-    const card=document.getElementById("card"+type.charAt(0).toUpperCase()+type.slice(1));
+  ["interior","exterior","afterhours","afterhoursMain"].forEach(type=>{
+    const cardId = type === "afterhoursMain" ? "cardAfterhoursMain" : "card"+type.charAt(0).toUpperCase()+type.slice(1);
+    const card=document.getElementById(cardId);
+    if(!card) return;
     if(state.saved[type]){card.classList.add("has-saved");hasSaved=true;}else{card.classList.remove("has-saved");}
   });
   document.getElementById("resumeBanner").style.display=hasSaved?"flex":"none";
