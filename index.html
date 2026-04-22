@@ -91,6 +91,10 @@ input,select,textarea{font-family:inherit}
 .progress-text{font-size:11px;font-weight:700;color:var(--text-light);min-width:36px;text-align:right}
 
 .zone-section{border-bottom:1px solid var(--border)}
+.zone-section.section-divider{border-bottom:none;padding:0}
+.section-divider-header{display:flex;align-items:center;gap:14px;padding:18px 20px 8px;background:var(--bg-alt)}
+.section-divider-line{flex:1;height:1px;background:var(--border)}
+.section-divider-label{font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--text-light);white-space:nowrap}
 .zone-header{padding:14px 20px;display:flex;align-items:center;cursor:pointer;background:var(--bg);transition:background .15s;gap:10px}
 .zone-header:hover{background:var(--bg-alt)}
 .zone-header .zone-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
@@ -303,11 +307,11 @@ const PATROL_DATA = {
         { q: "Is eye wash area all clear?", type: "status" },
         { q: "Are chemical files present?", type: "status" },
         { q: "Is roll-up gate secure?", type: "status" },
-        { q: "Is back exit door closed and secure?", type: "status" }
+        { q: "Is back and exit door secure?", type: "status" }
       ]},
       { name: "IDF 1.3 North Entrance", items: [
-        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
         { q: "Is fire extinguisher up to date?", type: "status" },
+        { q: "Temperature?", type: "temp", threshold: 75, contact: "Robert Simmons or Jason Schroeder" },
         { q: "Is area clean?", type: "status" },
         { q: "No leaks, no hazards?", type: "status" },
         { q: "Are panels closed and secure?", type: "status" },
@@ -522,9 +526,7 @@ const PATROL_DATA = {
   afterhoursMain: {
     title: "After-Hours — Main Building",
     zones: [
-      { name: "Labs", items: [
-        { q: "Are all labs secure?", type: "status" }
-      ]},
+      { name: "Labs", isSectionHeader: true, items: [] },
       { name: "CNC", items: [
         { q: "Is door locked and secure?", type: "status" },
         { q: "No leaks or spills?", type: "status" },
@@ -653,6 +655,18 @@ function renderPatrol(){
 
   data.zones.forEach((zone,zi)=>{
     const section=document.createElement("div");section.className="zone-section";
+    
+    // Section headers (no items, no toggle) — purely visual dividers
+    if(zone.isSectionHeader){
+      section.className="zone-section section-divider";
+      const divider=document.createElement("div");
+      divider.className="section-divider-header";
+      divider.innerHTML=`<span class="section-divider-line"></span><span class="section-divider-label">${zone.name}</span><span class="section-divider-line"></span>`;
+      section.appendChild(divider);
+      container.appendChild(section);
+      return;
+    }
+    
     const header=document.createElement("div");header.className="zone-header";header.dataset.zone=zi;
     header.innerHTML=`<div class="zone-icon empty" id="zoneIcon_${zi}">📋</div><h3>${zone.name}</h3><span class="zone-count" id="zoneCount_${zi}">0/${zone.items.length}</span><span class="chevron">▾</span>`;
     header.addEventListener("click",()=>header.classList.toggle("open"));
@@ -754,12 +768,15 @@ function attachPatrolListeners(){
 
 function updateProgress(){
   const data=PATROL_DATA[state.currentPatrol];let total=0,done=0,missingItems=[];
-  data.zones.forEach((zone,zi)=>{zone.items.forEach((item,ii)=>{
-    total++;
-    const r=state.responses[`${zi}|${ii}`];
-    if(r&&r.status) done++;
-    else missingItems.push({zi,ii,zone:zone.name,q:item.q});
-  });});
+  data.zones.forEach((zone,zi)=>{
+    if(zone.isSectionHeader) return;
+    zone.items.forEach((item,ii)=>{
+      total++;
+      const r=state.responses[`${zi}|${ii}`];
+      if(r&&r.status) done++;
+      else missingItems.push({zi,ii,zone:zone.name,q:item.q});
+    });
+  });
   const pct=total>0?Math.round((done/total)*100):0;
   document.getElementById("progressFill").style.width=pct+"%";
   document.getElementById("progressText").textContent=pct+"%";
@@ -799,6 +816,7 @@ function scrollToNextMissing(){
 function updateZoneIcons(){
   const data=PATROL_DATA[state.currentPatrol];
   data.zones.forEach((zone,zi)=>{
+    if(zone.isSectionHeader) return;
     let total=zone.items.length,done=0,hasIssue=false;
     zone.items.forEach((item,ii)=>{const r=state.responses[`${zi}|${ii}`];if(r&&r.status){done++;if(r.status==="fail"||r.status==="attn")hasIssue=true;}});
     const icon=document.getElementById(`zoneIcon_${zi}`);const count=document.getElementById(`zoneCount_${zi}`);
@@ -819,6 +837,7 @@ function validatePatrol(){
   let firstUnanswered=null;
 
   data.zones.forEach((zone,zi)=>{
+    if(zone.isSectionHeader) return;
     zone.items.forEach((item,ii)=>{
       const key=`${zi}|${ii}`;const r=state.responses[key];
       const el=document.getElementById(`item_${zi}_${ii}`);
@@ -885,6 +904,7 @@ function renderSummary(){
   const data=PATROL_DATA[state.currentPatrol];
   let passCount=0,failCount=0,attnCount=0;const issues=[];
   data.zones.forEach((zone,zi)=>{
+    if(zone.isSectionHeader) return;
     zone.items.forEach((item,ii)=>{
       const r=state.responses[`${zi}|${ii}`];if(!r)return;
       if(r.status==="pass")passCount++;
@@ -941,6 +961,7 @@ function buildExportRows(){
   const data=PATROL_DATA[state.currentPatrol];
   const rows=[];const now=new Date().toLocaleString("en-US");
   data.zones.forEach((zone,zi)=>{
+    if(zone.isSectionHeader) return;
     zone.items.forEach((item,ii)=>{
       const r=state.responses[`${zi}|${ii}`]||{};
       rows.push({
