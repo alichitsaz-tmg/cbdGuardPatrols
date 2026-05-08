@@ -2341,8 +2341,34 @@ const SITE_DATA = {
     name: "Liberty Ball Plant",
     location: "Liberty, NC",
     roster: [],
-    comingSoon: true,
-    patrols: {}
+    interim: true,
+    patrols: {
+      generalPatrol: {
+        title: "General Site Patrol",
+        type: "single",
+        zones: [
+          { name: "Site Walkthrough", items: [
+            { q: "Are all entrances and doors secured?", type: "status" },
+            { q: "Are there any unauthorized persons on premises?", type: "status" },
+            { q: "Any safety hazards observed?", type: "status" },
+            { q: "Any signs of damage or tampering?", type: "status" },
+            { q: "Are all critical systems functioning normally?", type: "status" },
+            { q: "Is the area clean and free of debris?", type: "status" }
+          ]},
+          { name: "Fire & Life Safety", items: [
+            { q: "Are fire extinguishers accessible and charged?", type: "status" },
+            { q: "Are emergency exits clear and unobstructed?", type: "status" },
+            { q: "Are emergency lights operational?", type: "status" },
+            { q: "Are eyewash stations accessible?", type: "status" }
+          ]},
+          { name: "Notes & Observations", items: [
+            { q: "Any incidents to report from this shift?", type: "status" },
+            { q: "Any maintenance issues noted?", type: "status" },
+            { q: "Any other observations?", type: "status" }
+          ]}
+        ]
+      }
+    }
   }
 };
 
@@ -2466,9 +2492,6 @@ otherNameInput.addEventListener("input", checkLoginReady);
 siteSelect.addEventListener("change", () => {
   populateOfficerDropdown(siteSelect.value);
   checkLoginReady();
-  if (siteSelect.value === "liberty") {
-    showToast("Liberty patrol data is coming soon — contact IT", "info");
-  }
 });
 
 btnLogin.addEventListener("click", () => {
@@ -2481,10 +2504,6 @@ btnLogin.addEventListener("click", () => {
   state.currentSite = siteSelect.value;
   state.currentUser = officerName;
   const site = SITE_DATA[state.currentSite];
-  if (site && site.comingSoon) {
-    showToast("Liberty patrol data is not yet configured. Please contact IT.", "error");
-    return;
-  }
   loadSaved();
   document.getElementById("greetingText").textContent = `Welcome, ${state.currentUser}`;
   document.getElementById("siteName").textContent = site.name + " · " + site.location;
