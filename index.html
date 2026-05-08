@@ -111,6 +111,9 @@ input,select,textarea{font-family:inherit}
 .zone-header .zone-icon.empty{background:var(--bg-alt);color:var(--text-light)}
 .zone-header .zone-icon.has-issue{background:#fee2e2;color:var(--red)}
 .zone-header h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;flex:1;color:var(--text)}
+.zone-name-wrap{flex:1;display:flex;flex-direction:column;gap:1px;min-width:0}
+.zone-name-wrap h3{flex:none}
+.zone-barcode{font-size:10px;color:var(--text-light);font-weight:500;letter-spacing:.04em;font-family:'SFMono-Regular','Consolas',monospace;text-transform:none}
 .zone-header .zone-count{font-size:11px;color:var(--text-light);font-weight:600}
 .zone-header .chevron{color:var(--text-light);font-size:14px;transition:transform .2s;margin-left:auto}
 .zone-header.open .chevron{transform:rotate(180deg)}
@@ -232,6 +235,7 @@ input,select,textarea{font-family:inherit}
             <option value="carlsbad">Carlsbad HQ — Carlsbad, CA</option>
             <option value="garrison">Garrison DC — Evansville, IN</option>
             <option value="liberty">Liberty Ball Plant — Liberty, NC</option>
+            <option value="tijuana">Tijuana — Tijuana, MX</option>
           </select>
         </div>
         <label>Security Officer</label>
@@ -2341,31 +2345,583 @@ const SITE_DATA = {
     name: "Liberty Ball Plant",
     location: "Liberty, NC",
     roster: [],
-    interim: true,
     patrols: {
-      generalPatrol: {
-        title: "General Site Patrol",
+      interior: {
+        title: "Interior Patrol",
         type: "single",
         zones: [
-          { name: "Site Walkthrough", items: [
-            { q: "Are all entrances and doors secured?", type: "status" },
-            { q: "Are there any unauthorized persons on premises?", type: "status" },
-            { q: "Any safety hazards observed?", type: "status" },
-            { q: "Any signs of damage or tampering?", type: "status" },
-            { q: "Are all critical systems functioning normally?", type: "status" },
-            { q: "Is the area clean and free of debris?", type: "status" }
-          ]},
-          { name: "Fire & Life Safety", items: [
-            { q: "Are fire extinguishers accessible and charged?", type: "status" },
-            { q: "Are emergency exits clear and unobstructed?", type: "status" },
-            { q: "Are emergency lights operational?", type: "status" },
-            { q: "Are eyewash stations accessible?", type: "status" }
-          ]},
-          { name: "Notes & Observations", items: [
-            { q: "Any incidents to report from this shift?", type: "status" },
-            { q: "Any maintenance issues noted?", type: "status" },
-            { q: "Any other observations?", type: "status" }
-          ]}
+        { name: "Lobby", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the lobby door secure?", type: "status" },
+          { q: "Is the hallway door secure?", type: "status" }
+        ]},
+        { name: "Employee Entrance", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Does door properly close and secure?", type: "status" },
+          { q: "Does the badge reader function properly?", type: "status" }
+        ]},
+        { name: "Break Room", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is emergency exit door secure?", type: "status" },
+          { q: "Are there any leaks from the ice or coffee machine?", type: "status" },
+          { q: "Is the facility office door secure?", type: "status" },
+          { q: "Is the mothers room door secure?", type: "status" }
+        ]},
+        { name: "Locker Room", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Are there any leaks in the men's restroom?", type: "status" },
+          { q: "Are there any leaks in the women's restroom?", type: "status" }
+        ]},
+        { name: "R&D", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Are both sets of doors closed and secured?", type: "status" },
+          { q: "Are lights turned off?", type: "status" }
+        ]},
+        { name: "TaylorMade Offices", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Are there any leaks in the kitchen?", type: "status" },
+          { q: "Are there any leaks in the men's restroom?", type: "status" },
+          { q: "Are there any leaks in the women's restroom?", type: "status" },
+          { q: "Is the door to the Augusta Room open?", type: "status" }
+        ]},
+        { name: "MDF", items: [
+          { q: "What is the temperature of the room?", type: "status" },
+          { q: "Are there any water or chemical leaks?", type: "status" },
+          { q: "Are there any odd smells or sounds?", type: "status" }
+        ]},
+        { name: "IPG Offices", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Are the office doors closed and secure?", type: "status" }
+        ]},
+        { name: "Mantle Room", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the dock door secure?", type: "status" },
+          { q: "Are dock roll up doors closed?", type: "status" }
+        ]},
+        { name: "Urethane 2/3/4", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the emergency exit clear/accessible and secure?", type: "status" },
+          { q: "Are fire extinguishers in the area clear/accessible?", type: "status" }
+        ]},
+        { name: "Maintenance", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the emergency exit clear/accessible and secure?", type: "status" },
+          { q: "Is the ladder secure?", type: "status" }
+        ]},
+        { name: "Supply", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the door to maintenance closed and secure?", type: "status" },
+          { q: "Is the roll up door secure?", type: "status" }
+        ]},
+        { name: "Tour / Vault", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the roll up door secure?", type: "status" },
+          { q: "Are there any odd smells or sounds?", type: "status" }
+        ]},
+        { name: "Hazmat Storage", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Does roll up door and badge door properly close and secure?", type: "status" },
+          { q: "Is the emergency exit clear/accessible and secure?", type: "status" },
+          { q: "Is the smoker's door closed and secure?", type: "status" }
+        ]},
+        { name: "Chemical Storage", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Does roll up door and badge door properly close and secure?", type: "status" },
+          { q: "Is the emergency exit clear/accessible and secure?", type: "status" }
+        ]},
+        { name: "Packing / QC", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the packing line running?", type: "status" },
+          { q: "Are fire extinguishers in the area clear/accessible?", type: "status" },
+          { q: "Are roll up doors and smoker door closed and secure?", type: "status" }
+        ]},
+        { name: "Shipping", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the dock door secure?", type: "status" },
+          { q: "Are dock roll up doors closed?", type: "status" }
+        ]},
+        { name: "Logo Packing Line", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the packing line running?", type: "status" },
+          { q: "Are the emergency exits clear/accessible and secure?", type: "status" },
+          { q: "Are fire extinguishers in the area clear/accessible?", type: "status" }
+        ]},
+        { name: "Logo Single Pass", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Are there any odd smells or sounds?", type: "status" },
+          { q: "Are fire extinguishers in the area clear/accessible?", type: "status" }
+        ]},
+        { name: "Logo Office", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is office secure outside of business hours?", type: "status" },
+          { q: "Are there any odd smells or sounds?", type: "status" }
+        ]},
+        { name: "Painting / Stamping", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Are all three paint lines running?", type: "status" }
+        ]},
+        { name: "Paint Kitchen", items: [
+          { q: "Is the door to the paint kitchen secure?", type: "status" },
+          { q: "Is the emergency exit clear/accessible and secure?", type: "status" }
+        ]},
+        { name: "IPG Server Room", items: [
+          { q: "What is the temperature of the room?", type: "status" },
+          { q: "Are there any water or chemical leaks?", type: "status" },
+          { q: "Are there any odd smells or sounds?", type: "status" }
+        ]},
+        { name: "CD / Buffing", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the mechanical room man door and roll up door both closed and secure?", type: "status" }
+        ]},
+        { name: "Mechanical Room", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Are exterior exit doors closed and secure?", type: "status" },
+          { q: "Is the pump room door closed and secure?", type: "status" }
+        ]},
+        { name: "Fire Pump Room", items: [
+          { q: "Is the fire pump or jockey pump running?", type: "status" },
+          { q: "Are both sets of doors closed and secured?", type: "status" },
+          { q: "Are there any safety concerns?", type: "status" }
+        ]},
+        { name: "Urethane Line 5", items: [
+          { q: "Are there any trip hazards or safety concerns?", type: "status" },
+          { q: "Is the emergency exit clear/accessible and secure?", type: "status" },
+          { q: "Are fire extinguishers in the area clear/accessible?", type: "status" },
+          { q: "Is the facility workshop closed and secure?", type: "status" }
+        ]}
+        ]
+      },
+      exterior: {
+        title: "Exterior Patrol",
+        type: "single",
+        zones: [
+        { name: "Flag Pole", items: [
+          { q: "Is either flag damaged?", type: "status" },
+          { q: "Are the lights on?", type: "status" },
+          { q: "Are the patio covers at the tables closed?", type: "status" }
+        ]},
+        { name: "TaylorMade Parking", items: [
+          { q: "Are there any safety concerns?", type: "status" },
+          { q: "Are there any cars parked after hours?", type: "status" }
+        ]},
+        { name: "Evac - Black", items: [
+          { q: "Are there any safety concerns?", type: "status" },
+          { q: "Are mantle docks clear of debris?", type: "status" },
+          { q: "Is the chain between TMaG parking and mantle secure?", type: "status" }
+        ]},
+        { name: "Evac - Pink", items: [
+          { q: "Are there any safety concerns?", type: "status" },
+          { q: "Are shipping docks clear of debris?", type: "status" },
+          { q: "Are there any flammable materials too close to the building at the dumpsters?", type: "status" }
+        ]},
+        { name: "Evac - Yellow", items: [
+          { q: "Are there any safety concerns?", type: "status" },
+          { q: "Is the truck gate damaged?", type: "status" },
+          { q: "Is the gravel parking lot damaged or unsafe?", type: "status" }
+        ]},
+        { name: "IPG Parking", items: [
+          { q: "Are there any safety concerns?", type: "status" },
+          { q: "Are fire pump and mechanical room doors closed?", type: "status" },
+          { q: "Are any vehicles parked where they should not be (i.e. handicap, contractor, etc)?", type: "status" }
+        ]},
+        { name: "Evac - Blue", items: [
+          { q: "Are there any safety concerns?", type: "status" },
+          { q: "Is there mail in the mailbox?", type: "status" },
+          { q: "Are any vehicles parked on the grass?", type: "status" }
+        ]}
+        ]
+      }
+    }
+  },
+  tijuana: {
+    name: "Tijuana",
+    location: "Tijuana, MX",
+    roster: [],
+    patrols: {
+      interior: {
+        title: "Interior Patrol",
+        type: "single",
+        zones: [
+        { name: "Security Desk", items: [
+          { q: "Security desk checklist completed at beginning of shift", type: "status" },
+          { q: "Both computers are “ON” and working – Applications running?", type: "status" },
+          { q: "Video Management (OnSSI)", type: "status" },
+          { q: "Badge System – Monitoring Screen (C-CURE)", type: "status" },
+          { q: "Email Open", type: "status" },
+          { q: "All badges accounted for – no missing badges", type: "status" },
+          { q: "No damage to desk or chairs", type: "status" },
+          { q: "Metal Detectors functioning – Both 1 and 2", type: "status" },
+          { q: "Turnstiles working – IN and OUT Lanes", type: "status" },
+          { q: "All two-way radios present and operational", type: "status" },
+          { q: "Extinguisher located on it spot, service tag updated.", type: "status" },
+          { q: "First aid Bag complete", type: "status" },
+          { q: "Locks set (150 pcs), complete.", type: "status" },
+          { q: "No damage in glass cubicle wall.", type: "status" }
+        ]},
+        { name: "Main Electrical Room", barcode: "119161", items: [
+          { q: "Feel door w/back of hand – make sure not hot to touch, including door handle.", type: "status" },
+          { q: "Is room secured (locked).", type: "status" },
+          { q: "Does door function properly (open and close). Always open the Door on the side of you , never on front of you.", type: "status" },
+          { q: "Is the room too hot?", type: "status" },
+          { q: "The light functioning Properly", type: "status" },
+          { q: "Is there any unusual sounds coming from equipment?", type: "status" },
+          { q: "Feel each panel with back of hand – are any extremely hot to touch.", type: "status" },
+          { q: "No objects on top of transformer", type: "status" },
+          { q: "Are there any water leaks in room – ceiling tiles or water on floor", type: "status" },
+          { q: "Is fire extinguisher located outside electrical room, Service tag updated ?", type: "status" }
+        ]},
+        { name: "Employee Entrance", barcode: "119163", items: [
+          { q: "Are Doors open and close properly ? locked and unlocked", type: "status" },
+          { q: "Reader functioning properly", type: "status" },
+          { q: "No damage in door glass and aluminum frame", type: "status" },
+          { q: "High frequency sensor is on (red light on)", type: "status" },
+          { q: "All lights are functional", type: "status" },
+          { q: "No obstacle, water spills on aisle floor", type: "status" },
+          { q: "Entrance carpets have no bumps", type: "status" }
+        ]},
+        { name: "Womens Restroom", barcode: "119164", items: [
+          { q: "All lights are functional", type: "status" },
+          { q: "No damage in mirror , and window glass", type: "status" },
+          { q: "Check High frequency sensor is on (red light is on)", type: "status" },
+          { q: "Are the leaks in pipes, unusual sound or hazards?", type: "status" },
+          { q: "No spilled water on floor", type: "status" },
+          { q: "Check for no graffiti", type: "status" },
+          { q: "No damage on toilets, doors, faucet and sinks.", type: "status" },
+          { q: "No damage in towel dispenser", type: "status" }
+        ]},
+        { name: "Mens Restroom", barcode: "119165", items: [
+          { q: "All lights are functional", type: "status" },
+          { q: "No damage in mirror , and window glass", type: "status" },
+          { q: "Check High frequency sensor is on (red light is on)", type: "status" },
+          { q: "Are the leaks in pipes, unusual sound or hazards?", type: "status" },
+          { q: "No spilled water on floor", type: "status" },
+          { q: "Check for no graffiti", type: "status" },
+          { q: "No damage on toilets, doors, faucet and sinks.", type: "status" },
+          { q: "No damage in towel dispenser", type: "status" }
+        ]},
+        { name: "Locker room", barcode: "119166", items: [
+          { q: "No spill liquids on floor", type: "status" },
+          { q: "Any item left behind-return or tag for lost and found", type: "status" },
+          { q: "No open padlocks", type: "status" },
+          { q: "No damages on lockers , benches or walls", type: "status" },
+          { q: "There are damages in window glass and aluminum frame?", type: "status" },
+          { q: "Check the high frequency sensor is on (red light is on)", type: "status" }
+        ]},
+        { name: "Dining Area", barcode: "119167", items: [
+          { q: "Are Emergency exits secured (Locked)", type: "status" },
+          { q: "Are equipmentEmergency exit secured (Locked)", type: "status" },
+          { q: "Television (4)", type: "status" },
+          { q: "AC (2)", type: "status" },
+          { q: "Microwaves (4)", type: "status" },
+          { q: "Frigidaire (2)", type: "status" },
+          { q: "Vendor machine (2)", type: "status" },
+          { q: "The all lights functional.", type: "status" },
+          { q: "Coffee pot safe –turn it off if not in use", type: "status" },
+          { q: "No damage in Microwaves, cabinets, Frigidaire.", type: "status" },
+          { q: "No damage in tables and chairs.", type: "status" },
+          { q: "Are there any water leaks in ceiling tiles, or spill water in floor.", type: "status" },
+          { q: "Are there  extinguishers inspected and accessible ?", type: "status" },
+          { q: "Is the gas (LP) container closed? (cuisine stuff)", type: "status" },
+          { q: "Check for no damages in cuisine equipment.", type: "status" },
+          { q: "No damages in windows or aluminum frame", type: "status" }
+        ]},
+        { name: "Maintenance Shop", barcode: "119168", items: [
+          { q: "Doors are secure (locked)", type: "status" },
+          { q: "The reader works properly.", type: "status" },
+          { q: "Door opens and closes properly", type: "status" },
+          { q: "No leaks, unusual sounds or hazards", type: "status" },
+          { q: "Internal door is locked (Office)", type: "status" },
+          { q: "Lights function properly -turn off if room not in use.", type: "status" },
+          { q: "Feel electrical box with back of hand –", type: "status" },
+          { q: "All machines (equipment) are off if not in use.", type: "status" },
+          { q: "No damages in windows and Aluminum frame", type: "status" },
+          { q: "Are there all chemical containers closed ?", type: "status" }
+        ]},
+        { name: "Training Room", barcode: "119162", items: [
+          { q: "Does door functioning properly ? and secured when is closed ?", type: "status" },
+          { q: "No damage in windows glass and aluminum frame", type: "status" },
+          { q: "Are projector present ? And no damage to projector and canvas ?", type: "status" },
+          { q: "Is fire extinguisher in its spot, Service tag updated?", type: "status" },
+          { q: "AC (2) turned off, if not in use , remote present.", type: "status" },
+          { q: "Are lights are functional , turn off if room not in use", type: "status" },
+          { q: "No damage in conference table or chairs", type: "status" },
+          { q: "Items left behind, return it or tag lost and found", type: "status" }
+        ]},
+        { name: "Emergency Exit S-04", barcode: "119169", items: [
+          { q: "Is theDoor secure (locked)? Push the door it has to be locked.", type: "status" },
+          { q: "The Door opens and closes properly ?", type: "status" },
+          { q: "No damage in door and frame.", type: "status" },
+          { q: "Access to exit should be clear, no obstructions.", type: "status" },
+          { q: "Appropriate lights (Night shift)", type: "status" },
+          { q: "Emergency Exit signs should be visible.", type: "status" }
+        ]},
+        { name: "HazMat Ramp Exit S-03", barcode: "119170", items: [
+          { q: "Is theDoor secure (locked)? Push the door it has to be locked.", type: "status" },
+          { q: "The Door opens and closes properly", type: "status" },
+          { q: "No damage in door and frame.", type: "status" },
+          { q: "Access to exit should be clear, no obstructions.", type: "status" },
+          { q: "Appropriate lights (Night shift)", type: "status" },
+          { q: "Access to water hose clear- No obstructions.", type: "status" },
+          { q: "Emergency Exit signs should be visible.", type: "status" }
+        ]},
+        { name: "Emergency Exit S-02", barcode: "119171", items: [
+          { q: "Is theDoor secure (locked)? Push the door it has to be locked.", type: "status" },
+          { q: "Door opens and closes properly ?", type: "status" },
+          { q: "No damage in door and frame.", type: "status" },
+          { q: "Access to exit should be clear, no obstructions.", type: "status" },
+          { q: "Appropriate lights (Night shift)", type: "status" },
+          { q: "Emergency Exit signs should be visible.", type: "status" }
+        ]},
+        { name: "Warehouse – Rear Rack", barcode: "119172", items: [
+          { q: "Is fire extinguisher in it spot?", type: "status" },
+          { q: "The extinguisher tag is not expired.", type: "status" },
+          { q: "Access to extinguisher clear, no obstructions.", type: "status" },
+          { q: "Appropriate lights", type: "status" },
+          { q: "Check for no stock in hanging over", type: "status" },
+          { q: "Pallets in stock has to get a gap between them (side and back)", type: "status" }
+        ]},
+        { name: "Warehouse - Center", barcode: "119173", items: [
+          { q: "Is Access to water hose clear ?, no obstructions ?", type: "status" },
+          { q: "No damage in water hose cage", type: "status" },
+          { q: "No leaks", type: "status" },
+          { q: "Appropriate lights", type: "status" },
+          { q: "Check for no stock in hanging over", type: "status" },
+          { q: "Pallets in stock has to get a gap between them (side and back)", type: "status" }
+        ]},
+        { name: "Warehouse – Center Aisle", barcode: "119174", items: [
+          { q: "Is fire extinguisher in it spot?", type: "status" },
+          { q: "The extinguisher tag is not expired.", type: "status" },
+          { q: "Access to extinguisher clear, no obstructions.", type: "status" },
+          { q: "Appropriate lights.", type: "status" },
+          { q: "Check for no stock in hanging over", type: "status" },
+          { q: "Pallets in stock has to get a gap between them (side and back)", type: "status" }
+        ]},
+        { name: "IDF SE - Receiving", barcode: "119175", items: [
+          { q: "Is the Cage secure (locked)?", type: "status" },
+          { q: "No damage in cage", type: "status" },
+          { q: "Access to IDF cage clear, no obstructions.", type: "status" },
+          { q: "Check that all connections functioning properly (Lights blinking)", type: "status" }
+        ]},
+        { name: "Receiving Emergency Exit S-01", barcode: "119176", items: [
+          { q: "Is theDoor secure (locked)? Push the door it has to be locked.", type: "status" },
+          { q: "The Door opens and closes properly ?", type: "status" },
+          { q: "No damage in door and frame.", type: "status" },
+          { q: "Access to exit should be clear, no obstructions.", type: "status" },
+          { q: "Appropriate lights (Night shift)", type: "status" },
+          { q: "Access to water hose clear- No obstructions.", type: "status" },
+          { q: "Emergency Exit signs should be visible.", type: "status" }
+        ]},
+        { name: "Shipping Office", barcode: "119177", items: [
+          { q: "Door is locked, reader is operational.", type: "status" },
+          { q: "Are there 3 computers and 3 telephones. ?", type: "status" },
+          { q: "Door closes and opens properly", type: "status" },
+          { q: "Little warehouse Door should be secure (locked).", type: "status" }
+        ]},
+        { name: "Fire Panel", barcode: "119178", items: [
+          { q: "No damage visible in fire panel cage.", type: "status" },
+          { q: "Is the Panel functioning properly ?", type: "status" },
+          { q: "Access to panel clear, no obstructions.", type: "status" }
+        ]},
+        { name: "MDF Room", barcode: "119179", items: [
+          { q: "Are the AC turn on and Temperature set in 17 Degrees?", type: "status" },
+          { q: "Doors open and close properly", type: "status" },
+          { q: "Light is operational", type: "status" },
+          { q: "No leaks, unusual sounds or hazards", type: "status" },
+          { q: "Disk safe is secure", type: "status" },
+          { q: "Is the extinguisher inspected and accessible, is tags updated ?", type: "status" }
+        ]},
+        { name: "Kitchenette", barcode: "119180", items: [
+          { q: "Lights functioning properly , turn off if not in use", type: "status" },
+          { q: "No damage or leaks in faucets sink and water dispenser.", type: "status" },
+          { q: "No damage in cabinets.", type: "status" },
+          { q: "Coffee pot turns off if not in use.", type: "status" },
+          { q: "Are the Frigidaire and Microwave functioning properly?", type: "status" }
+        ]},
+        { name: "Shower Room", barcode: "119181", items: [
+          { q: "Doors open and close properly", type: "status" },
+          { q: "Shower and faucets are closed.", type: "status" },
+          { q: "There are damage in sink cabinet, mirror and shower glass door?", type: "status" },
+          { q: "No leaks or spill water, Soap or shampoo.", type: "status" }
+        ]},
+        { name: "Large Conference Room", barcode: "119182", items: [
+          { q: "Doors functioning properly", type: "status" },
+          { q: "Coffee Pot – Safe/Unplugged if not in use", type: "status" },
+          { q: "is the Equipment present in conference room ?", type: "status" },
+          { q: "Is TV, Speakerphone and camera present in room?", type: "status" },
+          { q: "Television Present w/Remote", type: "status" },
+          { q: "Speaker Phone on Table", type: "status" },
+          { q: "Video Camera on Counter w/Remote on table", type: "status" },
+          { q: "No damage to interior or exterior glass", type: "status" },
+          { q: "No damage to cabinets (broken doors, handles, etc)", type: "status" },
+          { q: "Heat/AC turned off if not in use, Remote present", type: "status" },
+          { q: "Are all lights functional, turn off if room not in use.", type: "status" },
+          { q: "Damage to conference table or chairs", type: "status" },
+          { q: "No damage to carpet, or potential trip hazards", type: "status" },
+          { q: "Any items left behind – Return or tag for lost and found", type: "status" }
+        ]},
+        { name: "Fire Sprinkler Room", barcode: "119183", items: [
+          { q: "Door is secure (locked), opens and closes properly.", type: "status" },
+          { q: "No leaks, or damages in pipes or valves.", type: "status" },
+          { q: "Are the Valves always open.?", type: "status" },
+          { q: "Pressure within range on gauge.", type: "status" }
+        ]},
+        { name: "Front Entry Door Lobby", barcode: "119184", items: [
+          { q: "No damage in walls, furnishing, ceiling tiles, and carpet.", type: "status" },
+          { q: "No damage in Door and window’s glass.", type: "status" },
+          { q: "Is the door secured (locked), opens and closes properly?", type: "status" },
+          { q: "Reader functioning properly", type: "status" },
+          { q: "Extinguisher inspected and accessible, tag is updated.", type: "status" },
+          { q: "Light functioning properly", type: "status" },
+          { q: "No damage in Lobby restroom, Leaks, Mirrors, cabinet.", type: "status" }
+        ]}
+        ]
+      },
+      exterior: {
+        title: "Exterior Patrol",
+        type: "single",
+        zones: [
+        { name: "Front Door Railing", barcode: "119136", items: [
+          { q: "Is Door secured (locked) Push to check. ?", type: "status" },
+          { q: "Reader functional , Door opens closes properly", type: "status" },
+          { q: "No damage to glass and frame.", type: "status" },
+          { q: "No liquids or obstacles on steps.", type: "status" },
+          { q: "No cars or obstacles blocking fire hydrant .", type: "status" }
+        ]},
+        { name: "East front building light pole", barcode: "119199", items: [
+          { q: "Is access to the fire Hydrant in yard clear ?", type: "status" },
+          { q: "No damage or holes in Perimeter wall", type: "status" },
+          { q: "Light functioning properly (Night shift)", type: "status" }
+        ]},
+        { name: "North patio window", barcode: "119147", items: [
+          { q: "No damages in wall , floor and hand rail", type: "status" },
+          { q: "No damage in Windows and aluminum frame", type: "status" },
+          { q: "Is the Access to building clear ?, no obstacles (door, and stairs)", type: "status" },
+          { q: "The lights functioning properly? (Night shift)", type: "status" },
+          { q: "Are there smoker poles ?", type: "status" },
+          { q: "No unauthorized cars in parking visitors área", type: "status" },
+          { q: "NO damages or holes in perimeter Wall", type: "status" }
+        ]},
+        { name: "North light pole Across from Exit S04", barcode: "119186", items: [
+          { q: "Are there damage or holes in perimeter wall?", type: "status" },
+          { q: "No leaks in yard Sprinklers", type: "status" },
+          { q: "Light functioning properly (night shift)", type: "status" }
+        ]},
+        { name: "North West Rear corner Light Pole", barcode: "119187", items: [
+          { q: "No damage in fence", type: "status" },
+          { q: "Is there damages in Perimeter wall ?", type: "status" },
+          { q: "Light Functioning properly (Night shift)", type: "status" }
+        ]},
+        { name: "Emergency Exit NW S04", barcode: "119137", items: [
+          { q: "Is Door secured ? (locked)", type: "status" },
+          { q: "Access to Door is clear , no obstacles", type: "status" },
+          { q: "No damage in door, Frame and Rail", type: "status" },
+          { q: "Light functioning properly (Night shift)", type: "status" },
+          { q: "Access To Exit clear , No obstacles", type: "status" }
+        ]},
+        { name: "West pole light HazMat", barcode: "119188", items: [
+          { q: "Is there damage or holes in fence", type: "status" },
+          { q: "Any vehicles parked in close proximity of building", type: "status" },
+          { q: "Are lghts functioning properly? (Night shift)", type: "status" }
+        ]},
+        { name: "HazMat Storage", barcode: "119189", items: [
+          { q: "Is Door secured (locked)? , Door opens and closes properly", type: "status" },
+          { q: "Light functioning properly", type: "status" },
+          { q: "Data sheets available", type: "status" },
+          { q: "The container are grounded properly", type: "status" },
+          { q: "Are all containers closed?", type: "status" },
+          { q: "No leaks or chemical spill", type: "status" },
+          { q: "Is there the extinguisher on its Spot?", type: "status" },
+          { q: "It is the appropriate extinguisher for Chemicals fire?", type: "status" },
+          { q: "Frigidaire functioning properly , and keep in 17 Degrees", type: "status" }
+        ]},
+        { name: "Compressor Cage", barcode: "119190", items: [
+          { q: "Cage is secured (Padlocked) , Opens and closes properly", type: "status" },
+          { q: "Are there leaks or spilled liquids (water ,oil) ?", type: "status" },
+          { q: "Is there any unusual sounds coming from equipment?", type: "status" },
+          { q: "Feel each electric panel with back hand (Not touch, just close) for extreme temperature", type: "status" },
+          { q: "Check drain containers if is full call HazMat person in charge", type: "status" },
+          { q: "Is there Extinguisher on its spot?", type: "status" },
+          { q: "Are the extinguisher inspected and Tag Updated?", type: "status" },
+          { q: "No damage or holes in fence", type: "status" }
+        ]},
+        { name: "Emergency exit HazMat", barcode: "119138", items: [
+          { q: "Is Door secured (locked)? , Opens and closes properly", type: "status" },
+          { q: "No damage in door, frame or Hand rails", type: "status" },
+          { q: "Reader functioning properly", type: "status" },
+          { q: "Access to exit clear, no obstacles", type: "status" },
+          { q: "No leaks or spilled liquids in ramp", type: "status" }
+        ]},
+        { name: "Propane Tank", barcode: "119148", items: [
+          { q: "Is Gate secured? (Padlock) Gate opens and closes properly", type: "status" },
+          { q: "No damage or holes in fence", type: "status" },
+          { q: "Is there any unusual sound from Gas containers (2 both), Gas odor?", type: "status" },
+          { q: "No damage in Gas Cage fence", type: "status" },
+          { q: "Check the gauges pressure", type: "status" },
+          { q: "Is Tank valve open or close?", type: "status" }
+        ]},
+        { name: "Emergency exit Narrow walk way", barcode: "119149", items: [
+          { q: "No damages in rear perimeter wall", type: "status" },
+          { q: "No places to hide (persons, stuffs)", type: "status" },
+          { q: "Lights functioning properly (Night shift)", type: "status" },
+          { q: "Is Access to exit clear, no obstacles, no spilled liquids in steps ?", type: "status" }
+        ]},
+        { name: "Rear walkway Rain Gutter (TM side)", barcode: "119192", items: [
+          { q: "No damages in rear perimeter wall", type: "status" },
+          { q: "No places to hide (persons, stuffs)", type: "status" },
+          { q: "Lights functioning properly (Night shift)", type: "status" },
+          { q: "Is Access to exit clear, no obstacles, no spilled liquids in steps ?", type: "status" }
+        ]},
+        { name: "Rear Walkway Center", barcode: "119193", items: [
+          { q: "No damages in rear perimeter wall", type: "status" },
+          { q: "No places to hide (persons, stuffs)", type: "status" },
+          { q: "Lights functioning properly (Night shift)", type: "status" },
+          { q: "Access to exit clear, no obstacles, no spilled liquids in steps ?", type: "status" }
+        ]},
+        { name: "Rear (Rain gutter –Under pump)", barcode: "119194", items: [
+          { q: "Is Rear aisle clear, no obstacles?", type: "status" },
+          { q: "No damages in rear perimeter wall", type: "status" },
+          { q: "No places to hide (persons, stuffs)", type: "status" },
+          { q: "Is the Lights functioning properly ? (night shift)", type: "status" }
+        ]},
+        { name: "South (Roof Ladder)", barcode: "119195", items: [
+          { q: "Is the Ladder access secured ? (Locked)", type: "status" },
+          { q: "Access to roof clear, no obstacles", type: "status" },
+          { q: "No damage in ladder", type: "status" }
+        ]},
+        { name: "Fire Pump controller", barcode: "119196", items: [
+          { q: "Is door unlocked ?", type: "status" },
+          { q: "No damages in door or frame", type: "status" },
+          { q: "No leaks or spilled liquids", type: "status" },
+          { q: "Check any unusual sounds in equipment", type: "status" },
+          { q: "Lights functioning properly", type: "status" },
+          { q: "Are the 3 Valves in correct position (open)?", type: "status" },
+          { q: "Are the green bulbs turned on ?", type: "status" }
+        ]},
+        { name: "Guard Shack", barcode: "119197", items: [
+          { q: "Are the security guards alerts?", type: "status" },
+          { q: "Have they internal radio functioning?", type: "status" },
+          { q: "Is Vehicle gate closed ?", type: "status" },
+          { q: "Is áreas well lit ?", type: "status" }
+        ]},
+        { name: "East Front light pole lot across from dock 16", barcode: "119198", items: [
+          { q: "Light functioning properly (Night shift)", type: "status" },
+          { q: "is there  damage or holes in fence ?", type: "status" },
+          { q: "No damage in perimeter wall", type: "status" }
+        ]},
+        { name: "Emergency Exit Receiving Door", barcode: "119135", items: [
+          { q: "Is the door secured?  (locked)", type: "status" },
+          { q: "No damage in door, Frame or Hand rail", type: "status" },
+          { q: "Access to door clear, no obstacles.", type: "status" },
+          { q: "No leaks or spilled liquids in stairs", type: "status" },
+          { q: "Is Dock Bay well lit ?", type: "status" }
+        ]},
+        { name: "Generator Room", items: [
+          { q: "Is the door secured?  (locked)", type: "status" },
+          { q: "No damage in door, Frame or Hand rail", type: "status" },
+          { q: "The main  panel is ON", type: "status" },
+          { q: "No leaks or spilled liquids", type: "status" },
+          { q: "The Diesel gage it is full?", type: "status" }
+        ]}
         ]
       }
     }
@@ -2669,7 +3225,8 @@ function renderPatrol(){
     
     const header=document.createElement("div");header.className="zone-header";header.dataset.zone=zi;
     const quickBtn = zone.quickPass ? `<button class="btn-quick-pass" onclick="event.stopPropagation();quickPassZone(${zi})" title="Pass all items">✓ All</button>` : '';
-    header.innerHTML=`<div class="zone-icon empty" id="zoneIcon_${zi}">📋</div><h3>${zone.name}</h3>${quickBtn}<span class="zone-count" id="zoneCount_${zi}">0/${zone.items.length}</span><span class="chevron">▾</span>`;
+    const barcodeHtml = zone.barcode ? `<div class="zone-barcode">Checkpoint #${zone.barcode}</div>` : '';
+    header.innerHTML=`<div class="zone-icon empty" id="zoneIcon_${zi}">📋</div><div class="zone-name-wrap"><h3>${zone.name}</h3>${barcodeHtml}</div>${quickBtn}<span class="zone-count" id="zoneCount_${zi}">0/${zone.items.length}</span><span class="chevron">▾</span>`;
     header.addEventListener("click",()=>header.classList.toggle("open"));
     section.appendChild(header);
 
