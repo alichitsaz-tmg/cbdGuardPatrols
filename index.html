@@ -54,6 +54,8 @@ input,select,textarea{font-family:inherit}
 .select-wrap select{width:100%;padding:14px 16px;padding-right:40px;background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:15px;font-weight:500;appearance:none;-webkit-appearance:none}
 .select-wrap::after{content:'▾';position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--text-light);pointer-events:none;font-size:14px}
 .select-wrap select:focus{outline:none;border-color:var(--text)}
+#otherNameInput:focus{outline:none;border-color:var(--text);background:var(--bg)}
+.select-wrap select:disabled{opacity:.5;cursor:not-allowed;background:var(--bg-alt)}
 .btn-primary{width:100%;padding:16px;background:var(--text);color:#fff;font-family:'Barlow','DIN Next 79','Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.08em;border-radius:var(--radius);transition:background .2s}
 .btn-primary:hover{background:#333}
 .btn-primary:disabled{opacity:.25;cursor:not-allowed}
@@ -89,6 +91,12 @@ input,select,textarea{font-family:inherit}
 .progress-bar{flex:1;height:4px;background:var(--bg-alt);border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;background:var(--text);border-radius:2px;transition:width .3s}
 .progress-text{font-size:11px;font-weight:700;color:var(--text-light);min-width:36px;text-align:right}
+
+.btn-quick-pass{background:var(--green);color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;border-radius:6px;border:none;cursor:pointer;margin-right:8px;flex-shrink:0;transition:background .15s}
+.btn-quick-pass:hover{background:#0f6e2f}
+
+.patrol-card .icon.businesshours{background:#fffbeb;color:#c47f17}
+.patrol-card .icon.secondaryduties{background:#f3f4f6;color:#374151}
 
 .zone-section{border-bottom:1px solid var(--border)}
 .zone-section.section-divider{border-bottom:none;padding:0}
@@ -199,8 +207,8 @@ input,select,textarea{font-family:inherit}
   <div class="top-bar">
     <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAcAFoDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7LriPGfxa+G3g6+Nh4j8ZaTY3i/ftjNvlT/eRAWX8QK3vHGuaf4a8I6pr2rJdPYWNs81wLWNnk8sD5ioXB4HOcjGM5GK+a/gz8QPgn8QPiTD4Q8NfBayVbiOaaTUb6wtnZQilizg7mOTgZLE5YUAfQ3gn4g+CfGqt/wAIt4o0vVnQZeK3uAZEHqUOGA9yK6evmG++I3wU0H4ka9B4b8C6JZ6n4YtpCuvQWCpEt437lYFWFfMky8hQ49HxwM1HZ/tG+MLG+vU8SaBpEGn6Rr+nafq18IZ7fyILlXLN5TszK8eznJIOegoA+oqK+P8Ax78Y/E2r6l4O8SXunTWGiQTX/iSCws55Iri6063XbbNcc4xLJnjG0Lzzmui1X9ofxj4YtxJ4m0rwrO2oeGH1zTl0u4lc2rHHlR3O48hiwG5cc8CgD6eoyK+S/jx44+L8vhjQbGW8tfDOq3tje68U0G5l8yG0trLzCk7sBy0hIwvAwOSRmsCH4s+JdW+IfgzxLe+MdV0nwXFbF5lWRlS7hsoVNxcSquS4luS0S8ZIUjFAH2nRXyrcftL+L9GTX4tZ8MaddTWenW1zZyRQz2arJcSqkaTLMxbaVYvu+XIGMDPGH4t+LvjnRfixdarrcOk6jd+G9LisY7TQ7+d9Pmvr2QeW0gxnKpvBXkkqMEZ4APsaivLvgt4s8beLr/Vf+Eq0mXSo9KdY4ZY9PmtYNREibsiOf96jRlSDzg7wa9RoAbNHHNE8UqLJG6lWVhkMD1BHcV4dP8GY/hto/jXW/g9pgbxPr0K29lHPcLHHp6Mfn8pm6AE7wCTyqDoK9zooA+ff2bP2fLTwd4B1jT/iBY6XrWoa9NG97buvnwpHHzGmWHLBizFh3Ix0zXS+NPgV4f16KHRdOuLbw74Tlkhm1XRtM0yCIai8TAoXmxvUAAD5e2ecmvXaKAMSXwj4Xl1Bb+Xw/pklytgdNEj2yEi0PWDkf6v/AGelY1l8J/hpZafeafa+BPD0Vre7ftUS2CbZgrBlDccgMAQOgIrtKKAMfVfC3hzVb577UtD0+7unsZNPaWaBWY2z53w5P8DZOR0NUG+HngZoY4W8I6IYo9POmohs02ralixhAxwhYk49ea6eigDkLL4YfDuy0u90u08E6BBZX0KQ3cKWKBZ0Q7lDjHzYJyCeQeafZfDT4fWWmX+mWngrQILLUI447y3SwjEc6x52bxjDbckgnkE5611lFAGR4T8M+H/Celf2V4a0ey0my8wyGC0hEalzjLEDqTgc+wrXoooA/9k=" alt="TaylorMade" style="height:26px;object-fit:contain;flex-shrink:0;margin-right:2px">
     <div class="top-bar-text">
-      <h1>Carlsbad Controls</h1>
-      <p>Guard Patrol Checklist</p>
+      <h1 id="topbarTitle">TaylorMade Controls</h1>
+      <p id="topbarSubtitle">Guard Patrol Checklist</p>
     </div>
     <div class="top-bar-right">
       <div class="time" id="clock">--:--</div>
@@ -216,20 +224,26 @@ input,select,textarea{font-family:inherit}
         </div>
         <div class="login-divider"></div>
         <h2>Guard Patrol</h2>
-        <p class="subtitle">Carlsbad HQ — Select your name to begin</p>
+        <p class="subtitle">Select your site &amp; name to begin</p>
+        <label>Site</label>
+        <div class="select-wrap">
+          <select id="siteSelect">
+            <option value="">Choose your site…</option>
+            <option value="carlsbad">Carlsbad HQ — Carlsbad, CA</option>
+            <option value="garrison">Garrison DC — Evansville, IN</option>
+            <option value="liberty">Liberty Ball Plant — Liberty, NC</option>
+          </select>
+        </div>
         <label>Security Officer</label>
         <div class="select-wrap">
-          <select id="userSelect">
-            <option value="">Choose your name…</option>
-            <option value="Angelina">Angelina</option>
-            <option value="Levi">Levi</option>
-            <option value="Lloyd">Lloyd</option>
-            <option value="AJ">AJ</option>
-            <option value="Securitas 1">Securitas 1</option>
-            <option value="Securitas 2">Securitas 2</option>
-            <option value="Ryan">Ryan</option>
-            <option value="Jason">Jason</option>
+          <select id="userSelect" disabled>
+            <option value="">Choose your site first…</option>
           </select>
+        </div>
+        <div id="otherNameWrap" style="display:none;margin-top:-12px;margin-bottom:24px">
+          <input type="text" id="otherNameInput" maxlength="60" placeholder="Type your full name…"
+            style="width:100%;padding:14px 16px;background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:15px;font-weight:500">
+          <p style="font-size:11px;color:var(--text-light);margin-top:6px;letter-spacing:.02em">First and last name — this will be saved to the patrol record.</p>
         </div>
         <button class="btn-primary" id="btnLogin" disabled>Start Patrol</button>
       </div>
@@ -238,16 +252,28 @@ input,select,textarea{font-family:inherit}
 
   <div class="screen" id="selectScreen">
     <div class="patrol-select">
-      <h2 class="greeting" id="greetingText">Welcome</h2>
-      <p class="greeting-sub">Select a patrol to begin your rounds.</p>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:20px">
+        <div>
+          <h2 class="greeting" id="greetingText">Welcome</h2>
+          <p class="greeting-sub" id="siteName">—</p>
+        </div>
+        <button class="btn-link" id="btnSwitchSite" onclick="switchSite()" style="background:none;border:1px solid var(--border);padding:8px 12px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mid);white-space:nowrap;cursor:pointer">Switch Site</button>
+      </div>
       <div id="resumeBanner" class="resume-banner" style="display:none"><span>⏸</span><span>You have saved patrol(s) in progress. Tap to resume.</span></div>
       <div id="configBanner"></div>
-      <div class="patrol-cards">
-        <div class="patrol-card" data-patrol="interior" id="cardInterior"><div class="icon interior">🏢</div><div class="info"><h3>Interior Patrol</h3><p>14 zones · IDF rooms, electrical, hazmat & more</p></div><span class="arrow">›</span></div>
-        <div class="patrol-card" data-patrol="exterior" id="cardExterior"><div class="icon exterior">🌿</div><div class="info"><h3>Exterior Patrol</h3><p>16 zones · Entrances, gates, perimeter & equipment</p></div><span class="arrow">›</span></div>
-        <div class="patrol-card" data-patrol="afterhours" id="cardAfterhours"><div class="icon afterhours">🌙</div><div class="info"><h3>After-Hours — The Kingdom</h3><p>13 zones · After-hours only patrol</p></div><span class="arrow">›</span></div>
-        <div class="patrol-card" data-patrol="afterhoursMain" id="cardAfterhoursMain"><div class="icon afterhoursmain">🏭</div><div class="info"><h3>After-Hours — Main Building</h3><p>12 zones · Labs, kitchens, parking & perimeter</p></div><span class="arrow">›</span></div>
+      <div class="patrol-cards" id="patrolCards"></div>
+    </div>
+  </div>
+
+  <!-- ROUTE PICKER (for routed patrols like Garrison color routes) -->
+  <div class="screen" id="routeScreen">
+    <div class="patrol-select">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+        <button class="btn-back" onclick="showScreen('selectScreen')" style="background:none;color:var(--text-light);font-size:22px;padding:4px 8px;border-radius:4px;border:1px solid var(--border)">←</button>
+        <h2 class="greeting" id="routePickerTitle" style="margin:0">Select Route</h2>
       </div>
+      <p class="greeting-sub" style="margin-bottom:20px">Pick which color route you're patrolling.</p>
+      <div class="patrol-cards" id="routeCards"></div>
     </div>
   </div>
 
@@ -294,9 +320,15 @@ function updateConfigBanner() {
 // ══════════════════════════════════════════════
 // PATROL DATA
 // ══════════════════════════════════════════════
-const PATROL_DATA = {
+const SITE_DATA = {
+  carlsbad: {
+    name: "Carlsbad HQ",
+    location: "Carlsbad, CA",
+    roster: ["Angelina", "Levi", "Lloyd", "AJ", "Securitas 1", "Securitas 2", "Ryan", "Jason"],
+    patrols: {
   interior: {
     title: "Interior Patrol",
+    type: "single",
     zones: [
       { name: "Hazmat", items: [
         { q: "Is fire extinguisher 1 & 2 up to date?", type: "status" },
@@ -399,6 +431,7 @@ const PATROL_DATA = {
   },
   exterior: {
     title: "Exterior Patrol",
+    type: "single",
     zones: [
       { name: "Patio Entrance A11", items: [
         { q: "Is it closed and secure?", type: "status" },
@@ -468,6 +501,7 @@ const PATROL_DATA = {
   },
   afterhours: {
     title: "After-Hours — The Kingdom",
+    type: "single",
     zones: [
       { name: "Maintenance Shed", items: [
         { q: "Is it locked and secure?", type: "status" },
@@ -525,6 +559,7 @@ const PATROL_DATA = {
   },
   afterhoursMain: {
     title: "After-Hours — Main Building",
+    type: "single",
     zones: [
       { name: "Labs", isSectionHeader: true, items: [] },
       { name: "CNC", items: [
@@ -584,13 +619,1754 @@ const PATROL_DATA = {
       ]}
     ]
   }
+    }
+  },
+  garrison: {
+    name: "Garrison DC",
+    location: "Evansville, IN",
+    roster: [],
+    patrols: {
+      businessHours: {
+        title: "Business Hours Interior",
+        type: "routed",
+        routes: {
+          emergencyExit: { title: "Emergency Exit Route", color: "#6b7280", zones: [
+            { name: "A1 - B2 Shipping Trucker Door/Cage", items: [
+              { q: "Is the door and cage secured?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are the card readers operational?", type: "status" },
+              { q: "Is there are product left outside or in the cage?", type: "status" }
+            ]},
+            { name: "A2 - Front Lobby", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is there any damage to the glass?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are any products out of place?", type: "status" }
+            ]},
+            { name: "A3 - B1 Shipping Trucker Door/Cage", items: [
+              { q: "Is the door and cage secured?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are the card readers operational?", type: "status" },
+              { q: "Is there are product left outside or in the cage?", type: "status" }
+            ]},
+            { name: "B4 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" }
+            ]},
+            { name: "B5 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" }
+            ]},
+            { name: "B6 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" }
+            ]},
+            { name: "C7 - B1 Receiving Trucker Door/Cage", items: [
+              { q: "Is the door and cage secured?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside or in the cage?", type: "status" }
+            ]},
+            { name: "B8 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is there any damage to the glass?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" }
+            ]},
+            { name: "B9 - Employee Entrance", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is there any damage to the glass?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" }
+            ]},
+            { name: "B10 - Patio", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "C11 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" }
+            ]},
+            { name: "C12 - B2 Receiving Trucker Door/Cage", items: [
+              { q: "Is the door and cage secured?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are the card readers operational?", type: "status" },
+              { q: "Is there are product left outside or in the cage?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "D13 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" }
+            ]},
+            { name: "D14 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "D15 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "D16 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "D17 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "D18 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "D19 - Emergency Exit", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is the alarm functional?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is there are product left outside?", type: "status" }
+            ]}
+          ]},
+          blue: { title: "Blue Route", color: "#2563eb", zones: [
+            { name: "B2 Electrical Panel North West", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any unauthorized people/products?", type: "status" },
+              { q: "Are the panel doors closed and secured?", type: "status" },
+              { q: "Are there any safety hazards present?", type: "status" }
+            ]},
+            { name: "Case Erector", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the door secure?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" }
+            ]},
+            { name: "B1 Old Maintenance Corner", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the bay door closed and secured?", type: "status" },
+              { q: "Is there damage to the roof access?", type: "status" },
+              { q: "Is there damage or evidence of tampering to the gas shutoff?", type: "status" },
+              { q: "Is the stairwell/walkway accessible?", type: "status" }
+            ]},
+            { name: "Bag Line", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Is any product at risk of falling?", type: "status" }
+            ]},
+            { name: "B1 Riser Zone A", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B1 Shipping Docks 4-6", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "A2 - Front Lobby", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is there any damage to the glass?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are any products out of place?", type: "status" },
+              { q: "Is the area clear of hazards and debris?", type: "status" }
+            ]},
+            { name: "B1 Electrical Panel South", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any unauthorized people/products?", type: "status" },
+              { q: "Are the panel doors closed and secured?", type: "status" },
+              { q: "Are there any safety hazards present?", type: "status" }
+            ]},
+            { name: "B2 Shipping Docks 7-12", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 2", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 4", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]}
+          ]},
+          green: { title: "Green Route", color: "#1a8a3f", zones: [
+            { name: "Security Lobby", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the badge cabinet closed?", type: "status" },
+              { q: "Are all keys accounted for?", type: "status" },
+              { q: "Are the turnstiles operational?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 5", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "Select Fit", items: [
+              { q: "Is the line clear of hazards and debris?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products out of place?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" }
+            ]},
+            { name: "Compressors", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is there any visible damage to the system?", type: "status" },
+              { q: "Are there any visible/audible alarms?", type: "status" },
+              { q: "Are there any loud/unusual noises?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "Mechanical Room", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any leaks present?", type: "status" },
+              { q: "Are there any noticeable issues with the air handlers/water heaters?", type: "status" },
+              { q: "Is the wheelchair present?", type: "status" }
+            ]},
+            { name: "Rail Steps South", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the bay door closed/secured?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" }
+            ]},
+            { name: "B1 Riser Zone C", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "Quality Area", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "Sort", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "Club Line", items: [
+              { q: "Is the line clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" }
+            ]},
+            { name: "ARC Lift Charging", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are any lifts leaking?", type: "status" },
+              { q: "Are there any lifts left on?", type: "status" },
+              { q: "Are there any lifts parked with their forks up?", type: "status" },
+              { q: "Is the safety shower/eyewash accessible/undamaged?", type: "status" }
+            ]}
+          ]},
+          red: { title: "Red Route", color: "#e31937", zones: [
+            { name: "Employee Breakroom", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the fire extinguishers charged and in good condition?", type: "status" },
+              { q: "Are the market refrigerators/freezers operational?", type: "status" },
+              { q: "Are the employee refrigerators operational?", type: "status" },
+              { q: "Are the employee lockers damaged or dirty?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "North Lift Charging", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are any lifts leaking?", type: "status" },
+              { q: "Are there any lifts left on?", type: "status" },
+              { q: "Are there any lifts parked with their forks up?", type: "status" },
+              { q: "Is the eyewash accessible/undamaged?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 6 (Mezzanine)", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "Training Cell/Club Line Mezzanine", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" },
+              { q: "Are there any unauthorized people/product? (Training Cell)", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 1", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "South Lift Charging", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are any lifts leaking?", type: "status" },
+              { q: "Are there any lifts left on?", type: "status" },
+              { q: "Are there any lifts parked with their forks up?", type: "status" },
+              { q: "Is the eyewash accessible/undamaged?", type: "status" }
+            ]},
+            { name: "Data Room", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the temperature above 75 degrees?", type: "status" },
+              { q: "Is the MDF panel secured and operating", type: "status" },
+              { q: "Are there any odd smells or sounds?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Are the fire extinguishers charged and in good condition?", type: "status" }
+            ]},
+            { name: "Cresting", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "B1 Riser Zone B", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "SDR Line", items: [
+              { q: "Is the line clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" }
+            ]},
+            { name: "B1 Receiving Docks 19-20", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]}
+          ]},
+          yellow: { title: "Yellow Route", color: "#c47f17", zones: [
+            { name: "B2 Receiving Docks 14-18", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 3", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "Main Riser", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B2 Panel South", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any odd smells or sounds?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "Office Breakroom", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the employee refrigerator/ice maker operational?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "B1 Shipping Docks 1-3", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "Returns", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Is the shred bin secured?", type: "status" },
+              { q: "Have any heat guns been left on unattended?", type: "status" }
+            ]},
+            { name: "Main Conveyor Box", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there any leaks present?", type: "status" },
+              { q: "Is the bypass case secured?", type: "status" }
+            ]},
+            { name: "Lower Conveyor Power Box", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is the bypass case secured?", type: "status" }
+            ]},
+            { name: "Accessory Line", items: [
+              { q: "Is the line clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" }
+            ]},
+            { name: "Lock Out Tag Out (LOTO)", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is there damage to the LOTO cabinet?", type: "status" },
+              { q: "Are there adequate LOTO supplies?", type: "status" },
+              { q: "Is the IT cage secured?", type: "status" }
+            ]}
+          ]}
+        }
+      },
+      afterHours: {
+        title: "After Hours Interior",
+        type: "routed",
+        routes: {
+          orange: { title: "Orange Route", color: "#ea580c", zones: [
+            { name: "Security Lobby", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the badge cabinet closed?", type: "status" },
+              { q: "Are all keys accounted for?", type: "status" },
+              { q: "Are the turnstiles operational?", type: "status" }
+            ]},
+            { name: "B2 Bathrooms", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is there Damage?", type: "status" },
+              { q: "Is there any graffiti?", type: "status" },
+              { q: "Are there any water leaks?", type: "status" }
+            ]},
+            { name: "Employee Breakroom", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the fire extinguishers charged and in good condition?", type: "status" },
+              { q: "Are the market refrigerators/freezers operational?", type: "status" },
+              { q: "Are the employee refrigerators operational?", type: "status" },
+              { q: "Are the employee lockers damaged or dirty?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "ARC Lift Charging", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are any lifts leaking?", type: "status" },
+              { q: "Are there any lifts left on?", type: "status" },
+              { q: "Are there any lifts parked with their forks up?", type: "status" },
+              { q: "Is the safety shower/eyewash accessible/undamaged?", type: "status" }
+            ]},
+            { name: "Quality Area", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "B1 Receiving Docks 19-20", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "B1 Riser Zone C", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B1 Riser Zone B", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "Rail Steps South", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the bay door closed/secured?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" }
+            ]},
+            { name: "SDR Line", items: [
+              { q: "Is the line clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" }
+            ]},
+            { name: "Cresting", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "Conference Rooms", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Is there any damage?", type: "status" }
+            ]},
+            { name: "Data Room", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the temperature above 75 degrees?", type: "status" },
+              { q: "Is the MDF panel secured and operating", type: "status" },
+              { q: "Are there any odd smells or sounds?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Are the fire extinguishers charged and in good condition?", type: "status" }
+            ]},
+            { name: "Mechanical Room", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any leaks present?", type: "status" },
+              { q: "Are there any noticeable issues with the air handlers/water heaters?", type: "status" },
+              { q: "Is the wheelchair present?", type: "status" }
+            ]},
+            { name: "South Lift Charging", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are any lifts leaking?", type: "status" },
+              { q: "Are there any lifts left on?", type: "status" },
+              { q: "Are there any lifts parked with their forks up?", type: "status" },
+              { q: "Is the eyewash accessible/undamaged?", type: "status" }
+            ]},
+            { name: "Compressors", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is there any visible damage to the system?", type: "status" },
+              { q: "Are there any visible/audible alarms?", type: "status" },
+              { q: "Are there any loud/unusual noises?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 1", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "Sort", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "Training Cell/Club Line Mezzanine", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" },
+              { q: "Are there any unauthorized people/product? (Training Cell)", type: "status" }
+            ]},
+            { name: "Club Line", items: [
+              { q: "Is the line clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" }
+            ]},
+            { name: "Select Fit", items: [
+              { q: "Is the line clear of hazards and debris?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products out of place?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 6 (Mezzanine)", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 5", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "North Lift Charging", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are any lifts leaking?", type: "status" },
+              { q: "Are there any lifts left on?", type: "status" },
+              { q: "Are there any lifts parked with their forks up?", type: "status" },
+              { q: "Is the eyewash accessible/undamaged?", type: "status" }
+            ]}
+          ]},
+          purple: { title: "Purple Route", color: "#7c3aed", zones: [
+            { name: "B2 Electrical Panel North West", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any unauthorized people/products?", type: "status" },
+              { q: "Are the panel doors closed and secured?", type: "status" },
+              { q: "Are there any safety hazards present?", type: "status" }
+            ]},
+            { name: "Lock Out Tag Out (LOTO)", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is there damage to the LOTO cabinet?", type: "status" },
+              { q: "Are there adequate LOTO supplies?", type: "status" },
+              { q: "Is the IT cage secured?", type: "status" }
+            ]},
+            { name: "Returns", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Is the shred bin secured?", type: "status" },
+              { q: "Have any heat guns been left on unattended?", type: "status" }
+            ]},
+            { name: "Bag Line", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Is any product at risk of falling?", type: "status" }
+            ]},
+            { name: "B1 Old Maintenance Corner", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the bay door closed and secured?", type: "status" },
+              { q: "Is there damage to the roof access?", type: "status" },
+              { q: "Is there damage or evidence of tampering to the gas shutoff?", type: "status" },
+              { q: "Is the stairwell/walkway accessible?", type: "status" }
+            ]},
+            { name: "B1 Riser Zone A", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B1 Shipping Docks 1-3", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "B1 Shipping Docks 4-6", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "B1 Electrical Panel South", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any unauthorized people/products?", type: "status" },
+              { q: "Are the panel doors closed and secured?", type: "status" },
+              { q: "Are there any safety hazards present?", type: "status" }
+            ]},
+            { name: "B1 Bathrooms", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is there Damage?", type: "status" },
+              { q: "Is there any graffiti?", type: "status" },
+              { q: "Are there any water leaks?", type: "status" }
+            ]},
+            { name: "Office Breakroom", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the employee refrigerator/ice maker operational?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" },
+              { q: "Is the fire extinguisher charged and in good condition?", type: "status" }
+            ]},
+            { name: "A2 - Front Lobby", items: [
+              { q: "Is the door secure?", type: "status" },
+              { q: "Is there any damage to the glass?", type: "status" },
+              { q: "Is the exit sign lit?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are any products out of place?", type: "status" },
+              { q: "Is the area clear of hazards and debris?", type: "status" }
+            ]},
+            { name: "B2 Panel South", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are there any odd smells or sounds?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "B2 Shipping Docks 7-12", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 2", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 3", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B2 Riser Zone 4", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the valve open and secured?", type: "status" },
+              { q: "Is there evidence of tampering on the lock?", type: "status" },
+              { q: "Is the key present?", type: "status" },
+              { q: "What is the PSI?", type: "status" },
+              { q: "Is there damage or water leaking?", type: "status" }
+            ]},
+            { name: "B2 Receiving Docks 14-18", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Are the overhead doors secured?", type: "status" },
+              { q: "Is there any damage to the overhead doors?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "Wellness Room", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the MDF panel secured and operating", type: "status" },
+              { q: "Are there any odd smells or sounds?", type: "status" },
+              { q: "Are there any unauthorized people/product?", type: "status" }
+            ]},
+            { name: "Case Erector", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the door secure?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" }
+            ]},
+            { name: "Accessory Line", items: [
+              { q: "Is the line clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there open food/drinks present?", type: "status" },
+              { q: "Are any products at risk of falling?", type: "status" }
+            ]},
+            { name: "Lower Conveyor Power Box", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Is the bypass case secured?", type: "status" }
+            ]},
+            { name: "Main Conveyor Box", items: [
+              { q: "Is the area clear of hazards and debris?", type: "status" },
+              { q: "Is the pathway free of obstruction?", type: "status" },
+              { q: "Are there any leaks present?", type: "status" },
+              { q: "Is the bypass case secured?", type: "status" }
+            ]}
+          ]}
+        }
+      },
+      exterior: {
+        title: "Exterior Patrol",
+        type: "single",
+        zones: [
+        { name: "Employee Entrance", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Is the water hose connection locked?", type: "status" },
+          { q: "Are there any cars blocking the pedestrian walkway?", type: "status" },
+          { q: "Is the wall hydrant secured?", type: "status" }
+        ]},
+        { name: "Handicap Parking", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized vehicles in handicapped parking?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" }
+        ]},
+        { name: "Parking North", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" }
+        ]},
+        { name: "Parking South", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" }
+        ]},
+        { name: "Docks 19-20", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Are the dock doors secured?", type: "status" }
+        ]},
+        { name: "B Side Doors", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Are the doors secured?", type: "status" }
+        ]},
+        { name: "Pump House", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Is the pump house secure?", type: "status" },
+          { q: "Is there any damage to the pump/system?", type: "status" },
+          { q: "What is the PSI at the pump?", type: "status" },
+          { q: "What is the temperature in the pump house?", type: "status" }
+        ]},
+        { name: "EFD Hook-up", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Is there any damage to the hook-up?", type: "status" }
+        ]},
+        { name: "A Side Doors", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Are the doors secured?", type: "status" }
+        ]},
+        { name: "Docks 1-6", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Are the dock doors secured?", type: "status" }
+        ]},
+        { name: "Front Entrance", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Is the door secure?", type: "status" }
+        ]},
+        { name: "Docks 7-12", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Are the dock doors secured?", type: "status" }
+        ]},
+        { name: "D Side Doors", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Are the doors secured?", type: "status" },
+          { q: "Is the wall hydrant secured?", type: "status" }
+        ]},
+        { name: "Trash Compactor", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Is the wall hydrant secured?", type: "status" }
+        ]},
+        { name: "Docks 14-18", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Are the dock doors secured?", type: "status" }
+        ]},
+        { name: "C Side Doors", items: [
+          { q: "Is the area clear of hazards and debris?", type: "status" },
+          { q: "Are there any unauthorized people/product?", type: "status" },
+          { q: "Are the doors secured?", type: "status" }
+        ]}
+        ]
+      },
+      secondaryDuties: {
+        title: "Secondary Duties",
+        type: "single",
+        zones: [
+      { name: "Emergency Lighting", isSectionHeader: true, items: [] },
+      { name: "EL1 - A-1 B2 Shipping Door", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL2 - A-2 Front Entrance", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL3 - A-3 B1 Shipping Door", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL4 - B-4 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL5 - B-5 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL6 - B-6 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL7 - C-7 B1 Receiving Door", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL8 - B-8 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL9 - B-9 Employee Entrance", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL10 - B-10 Patio Door", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL11 - C-11 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL12 - C-12 B2 Receiving Door", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL13 - D-13 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL14 - D-14 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL15 - D-15 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL16 - D-16 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL17 - D-17 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL18 - D-18 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL19 - D-19 Emergency Exit", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL20 - Front Office Center Door Warehouse", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL21 - Front Office Cubical NE", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL22 - Front Office Cubical NW", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL23 - Mechanical Room", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL24 - Front Office Hall", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL25 - Front Office Hall Door W", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL26 - B1 Women's Restroom", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL27 - B1 Men's Bathroom", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL28 - Cresting N", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL29 - Cresting E", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL30 - Cresting S", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL31 - Cresting W", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL32 - Maintenance Shop E", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL33 - Maintenance Shop W", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL34 - Maintenance Office", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL35 - Security Lobby Warehouse Entrance", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL36 - Security lobby E", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL37 - Security Lobby Hall", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL38 - Employee Locker Area", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL39 - B2 Men's Restroom", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL40 - B2 Women's Restroom", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "EL41 - Employee Breakroom", items: [
+        { q: "Is the emergency light operational?", type: "status" }
+      ]},
+      { name: "Fire Extinguishers", isSectionHeader: true, items: [] },
+      { name: "1 - B2, Column F, Row 23, N of Riser #5", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "2 - B2, Column F, Row 21", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "3 - B2, Column F, Row 19, N of EE D-14", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "4 - B2, Column F, Row 16, N of EE D-15", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "5 - B2, Column F, Row 13, N of Riser #3", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "6 - B2, Column F, Row 11", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "7 - B2, Column F, Row 9, S of EE D-17", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "8 - B2, Column F, Row 6, S of EE D-18", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "9 - B2, Column F, Row 3, S of Riser #1", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "10 - B2, Column E, Row 3, Shipping", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "11 - B2, Column E, Row 6, VAS", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "12 - B2, Column E, Row 9, N of VAS", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "13 - B2, Column E, Row 11", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "14 - B2, Column E, Row 13, W of Riser #3", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "15 - B2, Column E, Row 16, W of EE D-15", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "16 - B2, Column E, Row 19, W of EE D-14", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "17 - B2, Column E, Row 21", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "18 - B2, Column E, Row 23, Receiving", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "19 - B2, Column D, Row 23, Receiving", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "20 - B2, Column D, Row 21, E of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "21 - B2, Column D, Row 19, E of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "22 - B2, Column D, Row 16, E of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "23 - B2, Column D, Row 13, E of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "24 - B2, Column D, Row 11, E of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "25 - B2, Column D, Row 9, E of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "26 - B2, Column D, Row 6, Wave planning", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "27 - B2, Column D, Row 3, Shipping", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "28 - B2, Top of S Stairwell, E of Training Cell", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "29 - B2, Top of E side of Training Cell", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "30 - B2, Bottom of E Stairway, Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "31 - B2, Bottom of NE Stairs, Mid Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "32 - B2, Bottom of Stairs, Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "33 - B2, Top of N Stairs, Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "34 - B2, Bottom of N Stairs, Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "35 - B2, Top of W Stairs,  Mid Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "36 - B2, Top of West Stairs, Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "37 - B2, Bottom W Stairs, Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "38 - B2, Convey Belt Bend, Sort", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "39 - B2, Column C, Row 3, Shipping", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "40 - B2, Column C, Row 5, N of Shipping", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "41 - B2, Column C, Row 6, W of Wave", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "42 - B2, Column C, Row 9, W of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "43 - B2, Column C, Row 12, W of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "44 - B2, Column C, Row 13, W of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "45 - B2, Column C, Row 16, W of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "46 - B2, Column C, Row 19, W of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "47 - B2, Column C, Row 21, W of Club Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "48 - B2, Column C, Row 23, Receiving", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "49 - B2, Column B, Row 23, E of Employ. Ent.", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "50 - B2, Column B, Row 21, E of Forklift Charge", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "51 - B2, Column B, Row 19, SE of Forklift Charge", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "52 - B2, Column B, Row 16, E of EE B-8", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "53 - B2, Column B, Row 13, W of Acc. Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "54 - B2, Column B, Row 12, NE of Pack & Hold", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "55 - B2, Column B, Row 9, E of Pack & Hold", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "56 - B2, Column B, Row 6, Sort Area", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "57 - B2, Column B, Row 2, Shipping Desks", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "58 - Front Office Data Room", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "59 - Front Office Data Room", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "60 - Front Office Breakroom", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "61 - B2, Column A, Row 3, N of Front Office", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "62 - B2, Column A, Row 6, Sort", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "63 - B2, Column A, Row 9, Pack & Hold", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "64 - B2, Column A, Row 12, Pack & Hold", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "65 - B2, Column A, Row 16, S of EE B-8", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "66 - B2, Column A, Row 19, Forklift Charging", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "67 - B2, Column A, Row 21, N of Forklift Charging", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "68 - B2, Employee Entrance Breakroom, Kitchenette", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "69 - B2, Employee Entrance Breakroom, West Wall", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "70 - B2, Employee Entrance Breakroom, East Wall", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "71 - B1, E Wall, Behind Restrooms", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "72 - B1, Embroidery Room, S Wall", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "73 - B1, S Wall, Shipping, Between Docks 4 & 5", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "74 - B1 NW Rail Door", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "75 - B1, Shipping, Door 6", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "76 - B1, E Side of Building, N of Restrooms", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "77 - B1, E Side of Building, Outside Embroidery", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "78 - B1, E Side of Building, N of Embroidery", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "79 - B1, E Side of Building, S of Receiving", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "80 - B1, E Side of Building, Receiving", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "81 - B1, Center Aisle, North End", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "82 - B1, Center Aisle, North End", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "83 - B1, North/Central Area of Building", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "84 - B1, Center Aisle, Middle of Building", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "85 - B1, Center Aisle, W of Bag Line", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "86 - B1, Center Aisle, S End of Warehouse, By A-3", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "87 - B1, W Side of Warehouse, SDR", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "88 - B1, W Side of Warehouse, N of SDR", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "89 - B1, W Side of Warehouse, S Central Area", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "90 - B1, W Side of Warehouse, N Central Area", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "91 - B1, W Side of Warehouse, N Central Area", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "92 - B1, W Side of Warehouse, S of Maintenance", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "93 - Pump House", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "94 - Security Desk", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "95 - B2 Receiving Outside C-12", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "96 - B2 Kitchenette Type K", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "97 - B2 Maintenance Shop", quickPass: true, items: [
+        { q: "Is the fire extinguisher charged?", type: "status" },
+        { q: "Is the pin secured?", type: "status" },
+        { q: "Is the hose in good condition?", type: "status" },
+        { q: "Is there any damage to the extinguisher/mount?", type: "status" }
+      ]},
+      { name: "Eye Wash", isSectionHeader: true, items: [] },
+      { name: "ARC Area Chargers", items: [
+        { q: "Is there any damage to the eyewash?", type: "status" },
+        { q: "Is the eyewash leaking?", type: "status" },
+        { q: "Is the water clear?", type: "status" }
+      ]},
+      { name: "Drexel Chargers", items: [
+        { q: "Is there any damage to the eyewash?", type: "status" },
+        { q: "Is the eyewash leaking?", type: "status" },
+        { q: "Is the water clear?", type: "status" }
+      ]},
+      { name: "South Chargers", items: [
+        { q: "Is there any damage to the eyewash?", type: "status" },
+        { q: "Is the eyewash leaking?", type: "status" },
+        { q: "Is the water clear?", type: "status" }
+      ]},
+      { name: "Exterior Lighting", isSectionHeader: true, items: [] },
+      { name: "A1W - B2 - Front Wall - East", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A2W - B2-Front Wall - East/Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A3W - B2 - Front - West/Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A4W - B2 - Front Wall - West", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A5W - B2 - Front Wall -  Entrance", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A6W - B1 - Front Wall - East", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A7W - B1 - Front Wall - East/Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "B12W - West Wall - South", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "B13W - West Wall - South/Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "B14W - West Wall - North/Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "B15W - West Wall - North", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C16W - B1 - Rear Wall - West", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C17W - B1 - Rear Wall - Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C18W - B1 - Rear Wall - East", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C19W - B2 - Employee Entrance - South", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C20W - B2 - Employee Entrance - Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C21W - B2 - Employee Entrance - North", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C22W - B2 - Rear Wall - West", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C23W - B2 - Rear Wall - West/Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C24W - B2 - Rear Wall - East/Center", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C25W - B2 - Rear Wall - East", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D35W - B2 - East Wall - North/1", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D36W - B2 - East Wall - North/2", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D37W - B2 - East Wall - North/3", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D38W - B2 - East Wall - North/4", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D39W - B2 - East Wall - Middle", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D40W - B2 - East Wall - South/4", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D41W - B2 - East Wall - South/3", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D42W - B2 - East Wall - South/2", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "D43W - B2 - East Wall - South/1", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A8P - Front Drive - Entry", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A9P - Front Drive - Corner", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A10P - Front Dock - East", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "A11P - Front Dock - West", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C26P - Employee Lot - Drive", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C27P - Employee Lot - South", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C28P - Employee Lot - South/West", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C29P - Employee Lot - South/East", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C30P - Employee Lot - Center/East", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C31P - Employee Lot - Center/West", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C32P - Employee Lot - North/West", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C33P - Employee Lot - North/East", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]},
+      { name: "C34P - B2 Receiving Dock - North", items: [
+        { q: "Is the light operational?", type: "status" }
+      ]}
+        ]
+      }
+    }
+  },
+  liberty: {
+    name: "Liberty Ball Plant",
+    location: "Liberty, NC",
+    roster: [],
+    comingSoon: true,
+    patrols: {}
+  }
 };
 
 // ══════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════
-let state = { currentUser: null, currentPatrol: null, responses: {}, startTime: null, saved: {} };
+let state = { currentSite: null, currentUser: null, currentPatrol: null, currentRoute: null, responses: {}, startTime: null, saved: {} };
 const SAVE_KEY = "tm_patrol_state";
+
+// Helper: resolve the active patrol object (handles routed sub-patrols)
+function getActivePatrol() {
+  if (!state.currentSite || !state.currentPatrol) return null;
+  const site = SITE_DATA[state.currentSite];
+  if (!site || !site.patrols) return null;
+  const patrol = site.patrols[state.currentPatrol];
+  if (!patrol) return null;
+  if (patrol.type === "routed") {
+    if (!state.currentRoute) return null;
+    const route = patrol.routes[state.currentRoute];
+    if (!route) return null;
+    return { title: patrol.title + " — " + route.title, zones: route.zones, color: route.color };
+  }
+  return { title: patrol.title, zones: patrol.zones || [] };
+}
 function loadSaved() { try { const r = sessionStorage.getItem(SAVE_KEY); if (r) state.saved = JSON.parse(r); } catch(e) {} }
 function persistSave() { try { sessionStorage.setItem(SAVE_KEY, JSON.stringify(state.saved)); } catch(e) {} }
 
@@ -611,44 +2387,249 @@ function showScreen(id) {
 
 // LOGIN
 const userSelect = document.getElementById("userSelect");
+const siteSelect = document.getElementById("siteSelect");
 const btnLogin = document.getElementById("btnLogin");
-userSelect.addEventListener("change",()=>{ btnLogin.disabled=!userSelect.value; });
-btnLogin.addEventListener("click",()=>{
-  state.currentUser=userSelect.value;
+const otherNameWrap = document.getElementById("otherNameWrap");
+const otherNameInput = document.getElementById("otherNameInput");
+
+function getResolvedOfficerName(){
+  if(userSelect.value === "__other__") {
+    return otherNameInput.value.trim();
+  }
+  return userSelect.value;
+}
+
+function checkLoginReady(){
+  const officerOk = userSelect.value === "__other__"
+    ? otherNameInput.value.trim().length >= 2
+    : !!userSelect.value;
+  btnLogin.disabled = !(siteSelect.value && officerOk);
+}
+
+function populateOfficerDropdown(siteCode){
+  // Reset
+  userSelect.innerHTML = '<option value="">Choose your name…</option>';
+  otherNameWrap.style.display = "none";
+  otherNameInput.value = "";
+
+  if(!siteCode){
+    userSelect.disabled = true;
+    userSelect.innerHTML = '<option value="">Choose your site first…</option>';
+    return;
+  }
+  userSelect.disabled = false;
+
+  const site = SITE_DATA[siteCode];
+  const roster = (site && site.roster) || [];
+
+  // Add roster names
+  roster.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    userSelect.appendChild(opt);
+  });
+
+  // Always add divider + Other option (works even when roster is empty)
+  if(roster.length > 0){
+    const sep = document.createElement("option");
+    sep.disabled = true;
+    sep.textContent = "──────────";
+    userSelect.appendChild(sep);
+  }
+  const other = document.createElement("option");
+  other.value = "__other__";
+  other.textContent = roster.length > 0 ? "Other (type name)…" : "Type my name…";
+  userSelect.appendChild(other);
+
+  // If site has no roster, auto-select Other to make it obvious
+  if(roster.length === 0){
+    userSelect.value = "__other__";
+    otherNameWrap.style.display = "block";
+    setTimeout(() => otherNameInput.focus(), 100);
+  }
+}
+
+userSelect.addEventListener("change", () => {
+  if(userSelect.value === "__other__"){
+    otherNameWrap.style.display = "block";
+    setTimeout(() => otherNameInput.focus(), 50);
+  } else {
+    otherNameWrap.style.display = "none";
+    otherNameInput.value = "";
+  }
+  checkLoginReady();
+});
+
+otherNameInput.addEventListener("input", checkLoginReady);
+
+siteSelect.addEventListener("change", () => {
+  populateOfficerDropdown(siteSelect.value);
+  checkLoginReady();
+  if (siteSelect.value === "liberty") {
+    showToast("Liberty patrol data is coming soon — contact IT", "info");
+  }
+});
+
+btnLogin.addEventListener("click", () => {
+  const officerName = getResolvedOfficerName();
+  if(!officerName || officerName.length < 2){
+    showToast("Please enter your name", "error");
+    otherNameInput.focus();
+    return;
+  }
+  state.currentSite = siteSelect.value;
+  state.currentUser = officerName;
+  const site = SITE_DATA[state.currentSite];
+  if (site && site.comingSoon) {
+    showToast("Liberty patrol data is not yet configured. Please contact IT.", "error");
+    return;
+  }
   loadSaved();
-  document.getElementById("greetingText").textContent=`Welcome, ${state.currentUser}`;
-  updatePatrolCards();
+  document.getElementById("greetingText").textContent = `Welcome, ${state.currentUser}`;
+  document.getElementById("siteName").textContent = site.name + " · " + site.location;
+  document.getElementById("topbarTitle").textContent = site.name.toUpperCase();
+  renderPatrolCards();
   updateConfigBanner();
   showScreen("selectScreen");
 });
 
-// PATROL SELECT
-function updatePatrolCards(){
-  let hasSaved=false;
-  ["interior","exterior","afterhours","afterhoursMain"].forEach(type=>{
-    const cardId = type === "afterhoursMain" ? "cardAfterhoursMain" : "card"+type.charAt(0).toUpperCase()+type.slice(1);
-    const card=document.getElementById(cardId);
-    if(!card) return;
-    if(state.saved[type]){card.classList.add("has-saved");hasSaved=true;}else{card.classList.remove("has-saved");}
-  });
-  document.getElementById("resumeBanner").style.display=hasSaved?"flex":"none";
+function switchSite(){
+  state.currentSite = null;
+  state.currentUser = null;
+  state.currentPatrol = null;
+  state.currentRoute = null;
+  state.responses = {};
+  document.getElementById("topbarTitle").textContent = "TaylorMade Controls";
+  document.getElementById("siteSelect").value = "";
+  populateOfficerDropdown("");
+  otherNameInput.value = "";
+  checkLoginReady();
+  showScreen("loginScreen");
 }
-document.querySelectorAll(".patrol-card").forEach(card=>{
-  card.addEventListener("click",()=>startPatrol(card.dataset.patrol));
-});
 
-function startPatrol(type){
-  state.currentPatrol=type;
-  if(state.saved[type]){state.responses={...state.saved[type].responses};state.startTime=state.saved[type].startTime;}
-  else{state.responses={};state.startTime=new Date().toISOString();}
-  renderPatrol();showScreen("patrolScreen");
+// PATROL SELECT — render cards dynamically based on site
+const PATROL_ICONS = {
+  interior: { emoji: "🏢", className: "interior" },
+  exterior: { emoji: "🌿", className: "exterior" },
+  afterhours: { emoji: "🌙", className: "afterhours" },
+  afterhoursMain: { emoji: "🏭", className: "afterhoursmain" },
+  businessHours: { emoji: "☀️", className: "businesshours" },
+  afterHours: { emoji: "🌙", className: "afterhours" },
+  secondaryDuties: { emoji: "📋", className: "secondaryduties" }
+};
+
+function countPatrolItems(patrol){
+  if(patrol.type === "single"){
+    let total=0;
+    (patrol.zones||[]).forEach(z=>{ if(!z.isSectionHeader) total += (z.items||[]).length; });
+    return { zones: (patrol.zones||[]).filter(z=>!z.isSectionHeader).length, items: total };
+  }
+  if(patrol.type === "routed"){
+    let zones=0, items=0, routes=0;
+    Object.values(patrol.routes||{}).forEach(r=>{
+      routes++;
+      (r.zones||[]).forEach(z=>{ if(!z.isSectionHeader){ zones++; items += (z.items||[]).length; } });
+    });
+    return { zones, items, routes };
+  }
+  return { zones: 0, items: 0 };
+}
+
+function renderPatrolCards(){
+  const container = document.getElementById("patrolCards");
+  const site = SITE_DATA[state.currentSite];
+  if(!site){ container.innerHTML = ""; return; }
+  let hasSaved = false;
+  let html = "";
+  Object.entries(site.patrols).forEach(([patrolKey, patrol])=>{
+    const stats = countPatrolItems(patrol);
+    const icon = PATROL_ICONS[patrolKey] || { emoji: "📋", className: "interior" };
+    const savedKey = state.currentSite + ":" + patrolKey;
+    const isSaved = !!state.saved[savedKey];
+    if(isSaved) hasSaved = true;
+    
+    let subtitle;
+    if(patrol.type === "routed"){
+      subtitle = `${stats.routes} route${stats.routes!==1?'s':''} · ${stats.zones} zones · ${stats.items} items`;
+    } else {
+      subtitle = `${stats.zones} zone${stats.zones!==1?'s':''} · ${stats.items} item${stats.items!==1?'s':''}`;
+    }
+    
+    html += `<div class="patrol-card${isSaved?' has-saved':''}" data-patrol="${patrolKey}" onclick="selectPatrol('${patrolKey}')">
+      <div class="icon ${icon.className}">${icon.emoji}</div>
+      <div class="info"><h3>${escapeHtml(patrol.title)}</h3><p>${subtitle}</p></div>
+      <span class="arrow">›</span>
+    </div>`;
+  });
+  container.innerHTML = html;
+  document.getElementById("resumeBanner").style.display = hasSaved ? "flex" : "none";
+}
+
+function escapeHtml(s){ return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+function selectPatrol(patrolKey){
+  const site = SITE_DATA[state.currentSite];
+  const patrol = site.patrols[patrolKey];
+  if(!patrol) return;
+  state.currentPatrol = patrolKey;
+  if(patrol.type === "routed"){
+    // Show route picker
+    renderRoutePicker(patrol);
+    showScreen("routeScreen");
+  } else {
+    state.currentRoute = null;
+    startPatrol(patrolKey, null);
+  }
+}
+
+function renderRoutePicker(patrol){
+  const container = document.getElementById("routeCards");
+  document.getElementById("routePickerTitle").textContent = patrol.title;
+  let html = "";
+  Object.entries(patrol.routes).forEach(([routeKey, route])=>{
+    const stats = { zones: 0, items: 0 };
+    (route.zones||[]).forEach(z=>{ if(!z.isSectionHeader){ stats.zones++; stats.items += (z.items||[]).length; } });
+    const savedKey = state.currentSite + ":" + state.currentPatrol + ":" + routeKey;
+    const isSaved = !!state.saved[savedKey];
+    html += `<div class="patrol-card${isSaved?' has-saved':''}" onclick="startPatrol('${state.currentPatrol}','${routeKey}')">
+      <div class="icon" style="background:${route.color}20;color:${route.color};border:2px solid ${route.color}40">●</div>
+      <div class="info"><h3>${escapeHtml(route.title)}</h3><p>${stats.zones} zones · ${stats.items} items</p></div>
+      <span class="arrow">›</span>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function startPatrol(patrolKey, routeKey){
+  state.currentPatrol = patrolKey;
+  state.currentRoute = routeKey || null;
+  const savedKey = state.currentSite + ":" + patrolKey + (routeKey ? ":" + routeKey : "");
+  if(state.saved[savedKey]){
+    state.responses = {...state.saved[savedKey].responses};
+    state.startTime = state.saved[savedKey].startTime;
+  } else {
+    state.responses = {};
+    state.startTime = new Date().toISOString();
+  }
+  renderPatrol();
+  showScreen("patrolScreen");
+}
+
+function getSavedKey(){
+  return state.currentSite + ":" + state.currentPatrol + (state.currentRoute ? ":" + state.currentRoute : "");
 }
 
 // ══════════════════════════════════════════════
 // RENDER PATROL
 // ══════════════════════════════════════════════
 function renderPatrol(){
-  const data=PATROL_DATA[state.currentPatrol];
+  const data=getActivePatrol();
+  if(!data){
+    showToast("Please select a route","error");
+    showScreen("selectScreen");
+    return;
+  }
   document.getElementById("patrolTitle").textContent=data.title;
   const container=document.getElementById("zonesContainer");
   container.innerHTML="";
@@ -668,7 +2649,8 @@ function renderPatrol(){
     }
     
     const header=document.createElement("div");header.className="zone-header";header.dataset.zone=zi;
-    header.innerHTML=`<div class="zone-icon empty" id="zoneIcon_${zi}">📋</div><h3>${zone.name}</h3><span class="zone-count" id="zoneCount_${zi}">0/${zone.items.length}</span><span class="chevron">▾</span>`;
+    const quickBtn = zone.quickPass ? `<button class="btn-quick-pass" onclick="event.stopPropagation();quickPassZone(${zi})" title="Pass all items">✓ All</button>` : '';
+    header.innerHTML=`<div class="zone-icon empty" id="zoneIcon_${zi}">📋</div><h3>${zone.name}</h3>${quickBtn}<span class="zone-count" id="zoneCount_${zi}">0/${zone.items.length}</span><span class="chevron">▾</span>`;
     header.addEventListener("click",()=>header.classList.toggle("open"));
     section.appendChild(header);
 
@@ -706,6 +2688,31 @@ function renderPatrol(){
     section.appendChild(body);container.appendChild(section);
   });
   attachPatrolListeners();updateProgress();updateZoneIcons();
+}
+
+function quickPassZone(zi){
+  const data=getActivePatrol();if(!data)return;
+  const zone=data.zones[zi];if(!zone)return;
+  zone.items.forEach((item,ii)=>{
+    const key=`${zi}|${ii}`;
+    if(!state.responses[key]) state.responses[key]={};
+    state.responses[key].status = "pass";
+  });
+  // Re-render this zone's UI to reflect pass state
+  zone.items.forEach((item,ii)=>{
+    const key=`${zi}|${ii}`;
+    const itemEl = document.getElementById(`item_${zi}_${ii}`);
+    if(!itemEl) return;
+    itemEl.querySelectorAll(".btn-status").forEach(b=>{
+      b.classList.remove("selected");
+      if(b.dataset.status === "pass") b.classList.add("selected");
+    });
+    const notesDiv = document.getElementById(`notes_${zi}_${ii}`);
+    if(notesDiv && !state.responses[key]?.notes) notesDiv.style.display = "none";
+    itemEl.classList.remove("validation-error","unanswered-highlight");
+  });
+  updateProgress();updateZoneIcons();
+  showToast(`✓ All ${zone.items.length} items passed`,"success");
 }
 
 function attachPatrolListeners(){
@@ -767,7 +2774,7 @@ function attachPatrolListeners(){
 }
 
 function updateProgress(){
-  const data=PATROL_DATA[state.currentPatrol];let total=0,done=0,missingItems=[];
+  const data=getActivePatrol();if(!data)return;let total=0,done=0,missingItems=[];
   data.zones.forEach((zone,zi)=>{
     if(zone.isSectionHeader) return;
     zone.items.forEach((item,ii)=>{
@@ -814,7 +2821,7 @@ function scrollToNextMissing(){
 }
 
 function updateZoneIcons(){
-  const data=PATROL_DATA[state.currentPatrol];
+  const data=getActivePatrol();if(!data)return;
   data.zones.forEach((zone,zi)=>{
     if(zone.isSectionHeader) return;
     let total=zone.items.length,done=0,hasIssue=false;
@@ -832,7 +2839,7 @@ function updateZoneIcons(){
 // VALIDATION
 // ══════════════════════════════════════════════
 function validatePatrol(){
-  const data=PATROL_DATA[state.currentPatrol];
+  const data=getActivePatrol();if(!data)return;
   let valid=true; let firstError=null; let unansweredCount=0; let missingNotesCount=0;
   let firstUnanswered=null;
 
@@ -879,21 +2886,24 @@ function validatePatrol(){
 
 // SAVE
 document.getElementById("btnSavePatrol").addEventListener("click",()=>{
-  state.saved[state.currentPatrol]={responses:{...state.responses},startTime:state.startTime};
+  const key = getSavedKey();
+  state.saved[key]={responses:{...state.responses},startTime:state.startTime};
   persistSave();showToast("Patrol saved! You can resume later.","success");
 });
 
 document.getElementById("btnBackToSelect").addEventListener("click",()=>{
   if(Object.keys(state.responses).length>0){
-    state.saved[state.currentPatrol]={responses:{...state.responses},startTime:state.startTime};persistSave();
+    const key = getSavedKey();
+    state.saved[key]={responses:{...state.responses},startTime:state.startTime};persistSave();
   }
-  updatePatrolCards();showScreen("selectScreen");
+  renderPatrolCards();showScreen("selectScreen");
 });
 
 // SUBMIT
 document.getElementById("btnSubmitPatrol").addEventListener("click",()=>{
   if(!validatePatrol())return;
-  delete state.saved[state.currentPatrol];persistSave();
+  const key = getSavedKey();
+  delete state.saved[key];persistSave();
   renderSummary();showScreen("summaryScreen");
 });
 
@@ -901,7 +2911,7 @@ document.getElementById("btnSubmitPatrol").addEventListener("click",()=>{
 // SUMMARY
 // ══════════════════════════════════════════════
 function renderSummary(){
-  const data=PATROL_DATA[state.currentPatrol];
+  const data=getActivePatrol();if(!data)return;
   let passCount=0,failCount=0,attnCount=0;const issues=[];
   data.zones.forEach((zone,zi)=>{
     if(zone.isSectionHeader) return;
@@ -958,13 +2968,16 @@ function renderSummary(){
 // EXPORT FUNCTIONS
 // ══════════════════════════════════════════════
 function buildExportRows(){
-  const data=PATROL_DATA[state.currentPatrol];
+  const data=getActivePatrol();if(!data)return [];
+  const site=SITE_DATA[state.currentSite];
+  const siteName = site ? site.name : state.currentSite;
   const rows=[];const now=new Date().toLocaleString("en-US");
   data.zones.forEach((zone,zi)=>{
     if(zone.isSectionHeader) return;
     zone.items.forEach((item,ii)=>{
       const r=state.responses[`${zi}|${ii}`]||{};
       rows.push({
+        Site:siteName,
         PatrolType:data.title, Zone:zone.name, Checkpoint:item.q,
         Status:(r.status||"").toUpperCase(), Reading:r.temp||"",
         Notes:r.notes||"", Officer:state.currentUser, Timestamp:now,
@@ -978,19 +2991,19 @@ function buildExportRows(){
 
 function exportXLSX(){
   const rows=buildExportRows();
-  const headers=["PatrolType","Zone","Checkpoint","Status","Reading","Notes","Officer","Timestamp","PatrolStart","PatrolEnd"];
+  const headers=["Site","PatrolType","Zone","Checkpoint","Status","Reading","Notes","Officer","Timestamp","PatrolStart","PatrolEnd"];
   const aoa=[headers,...rows.map(r=>headers.map(h=>r[h]))];
   const ws=XLSX.utils.aoa_to_sheet(aoa);
-  ws['!cols']=[{wch:24},{wch:28},{wch:50},{wch:14},{wch:12},{wch:40},{wch:14},{wch:22},{wch:22},{wch:22}];
+  ws['!cols']=[{wch:18},{wch:30},{wch:28},{wch:50},{wch:14},{wch:12},{wch:40},{wch:14},{wch:22},{wch:22},{wch:22}];
   const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Patrol Report");
   const dateStr=new Date().toISOString().slice(0,10);
-  XLSX.writeFile(wb,`TM_Patrol_${state.currentPatrol}_${state.currentUser}_${dateStr}.xlsx`);
+  XLSX.writeFile(wb,`TM_Patrol_${state.currentSite}_${state.currentPatrol}_${state.currentUser}_${dateStr}.xlsx`);
   showToast("Excel file downloaded!","success");
 }
 
 function exportClipboard(){
   const rows=buildExportRows();
-  const headers=["PatrolType","Zone","Checkpoint","Status","Reading","Notes","Officer","Timestamp"];
+  const headers=["Site","PatrolType","Zone","Checkpoint","Status","Reading","Notes","Officer","Timestamp"];
   const csv=[headers.join("\t"),...rows.map(r=>headers.map(h=>`"${String(r[h]).replace(/"/g,'""')}"`).join("\t"))].join("\n");
   navigator.clipboard.writeText(csv).then(()=>showToast("Copied to clipboard! Paste into Excel.","success")).catch(()=>{
     const ta=document.createElement("textarea");ta.value=csv;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
@@ -1005,8 +3018,12 @@ async function sendToSharePoint(){
   if(!WEBHOOK_URL){showToast("No webhook URL configured. Tap ⚙ to set up.","error");return;}
   const overlay=document.getElementById("sendingOverlay");overlay.classList.add("active");
   const rows=buildExportRows();
+  const data=getActivePatrol();
+  const site=SITE_DATA[state.currentSite];
   const payload = {
-    patrolType: PATROL_DATA[state.currentPatrol].title,
+    site: site ? site.name : state.currentSite,
+    siteCode: state.currentSite,
+    patrolType: data ? data.title : state.currentPatrol,
     officer: state.currentUser,
     timestamp: new Date().toISOString(),
     patrolStart: state.startTime,
@@ -1035,7 +3052,7 @@ async function sendToSharePoint(){
   }
 }
 
-function newPatrol(){state.responses={};state.currentPatrol=null;updatePatrolCards();updateConfigBanner();showScreen("selectScreen");}
+function newPatrol(){state.responses={};state.currentPatrol=null;state.currentRoute=null;renderPatrolCards();updateConfigBanner();showScreen("selectScreen");}
 
 // ══════════════════════════════════════════════
 // TOAST
